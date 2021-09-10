@@ -1,0 +1,234 @@
+*{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    max-width: 800px;
+    margin:auto;
+}
+.main-title {
+    text-align: center;
+    color:rgba(36, 7, 7, 0.685);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    background-color: lightskyblue;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+footer{
+    background-color: lightskyblue;
+    padding: 5px;
+    margin: 10px;
+    text-align: center;
+}
+nav a{
+    display: inline-block;
+    margin: 3px;
+    padding: 10px;
+    border-bottom: 1px solid transparent;
+    text-decoration: none;
+}
+nav a:hover{
+    border-bottom: 1px solid whitesmoke;
+    text-decoration: overline;
+    color: whitesmoke;
+}
+
+
+.user-msg {
+    color:white;
+    padding: 10px;
+    font-size: 1.4em;
+    position: fixed;
+    top:0;
+    right:0;
+    background-color: grey;
+}
+
+.user-msg button {
+    float:right;
+    border:0;
+    border-radius: 50%;
+    margin: 5px;
+}
+
+.success {
+    background-color: rgb(41, 189, 73);
+}
+
+.danger {
+    background-color: rgb(216, 59, 59);
+}
+
+button {
+    cursor: pointer;
+}
+
+.on-wheels{
+    color:blue;
+    background-color: rgba(0, 0, 255,0.3);
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.box-game{
+    color:green;
+    background-color: rgba(0, 128, 0,0.3);
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.art{
+    color:purple;
+    background-color: rgba(128, 0, 128,0.3);
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.baby{
+    color:hotpink;
+    background-color: rgba(255, 105, 180,0.3);
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.doll{
+    color:red;
+    background-color: rgba(255, 0, 0,0.3);
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.puzzle{
+    color:teal;
+    background-color: rgba(0, 128, 128,0.3);
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.outdoor{
+    color:orange;
+    background-color: rgba(255, 165, 0,0.3);
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.in-stock{
+    color: greenyellow;
+    font-weight: 600;
+}
+
+.out-stock{
+    color: lightcoral;
+    font-weight: 600;
+}
+
+.filter{
+    display: flex;
+    gap:10px;
+    align-items:stretch;
+    background-color: thistle;
+    padding: 10px;
+}
+
+.filter>label{
+    align-self: center;
+}
+
+.filter .filter-labels{
+    flex-grow: 1;
+}
+
+.labels__control{
+    border-color: unset!important;
+    border-radius: 0!important;
+}
+
+.labels__indicator.labels__dropdown-indicator{
+    color: unset!important;
+}
+
+.toy-add{
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+}
+.toy-add .toy-add-labels{
+    flex-grow: 1;
+}
+.toy-add [name="inStock"]{
+    align-self: center;
+}
+
+.toy-details .labels label{
+    margin-right: 15px;
+}
+
+main table thead tr td{
+    font-weight: 600;
+}
+
+main table tbody tr:nth-of-type(2n){
+    background-color: rgba(214, 214, 214, 0.5);
+}
+
+.toy-preview{
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 3px;
+    transition: all .5s;
+}
+
+.toy-preview:hover{
+    background-color: rgba(255, 69, 0,0.2);
+}
+
+.btn-link {
+    border:0;
+    background-color: transparent;
+    text-decoration: underline;
+    transition: .5s;
+}
+.btn-link:hover {
+    background-color: turquoise;
+    transform: scale(1.1);
+}
+
+.fancy-box {
+    background-color: gold;
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+}
+
+.split-pane > div{
+    transition: 0.5s;
+}
+.example-enter {
+    opacity: 0.01;
+}
+  
+.example-enter.example-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+  
+.example-leave {
+    opacity: 1;
+    transform: scale(1.3);
+}
+  
+.example-leave.example-leave-active {
+    opacity: 0.01;
+    transform: scale(1);
+    transition: all 300ms ease-in;
+}
+
+.proj-preview {
+    background-color: teal;
+    color: whitesmoke;
+    padding: 5px;
+    margin: 3px;
+}
