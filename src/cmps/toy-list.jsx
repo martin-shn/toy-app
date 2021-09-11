@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import ToyPreview from './toy-preview'
 
 ToyList.propTypes={
-    user:PropTypes.object.isRequired,
+    user:PropTypes.object,
     toys:PropTypes.array.isRequired,
     history:PropTypes.object.isRequired,
     onRemoveToy:PropTypes.func.isRequired,
