@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { toyService } from '../services/toy.service';
+import {Chat} from '../cmps/chat'
 
 
 class _ToyDetails extends React.Component{
@@ -38,6 +39,7 @@ class _ToyDetails extends React.Component{
                 {toy.reviews.map((review,idx)=><div key={idx}>{review}</div>)}
             </div>
             <button onClick={this.onBack}>Back</button>
+            <Chat/>
         </section>
     }
 }

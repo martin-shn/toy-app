@@ -44,6 +44,7 @@ class _ToyApp extends React.Component {
                     {user&&<ToyAdd/>}
                     {toys.length>0&&<ToyList user={user} toys={toys} history={this.props.history} onRemoveToy={this.props.onRemoveToy}/>}
                     {toys.length===0&&<div>Nothing to show here yet. Please add some toys. To add toys - you must login!</div>}
+                    {!user&&<strong>To add/edit toys - you must login!</strong>}
                 </main>
             </div>
         )

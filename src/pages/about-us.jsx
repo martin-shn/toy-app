@@ -2,7 +2,8 @@ import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 // import { CSSTransitionGroup } from 'react-transition-group'
 
-import {utilService} from '../services/util.service'
+// import {utilService} from '../services/util.service'
+import { NicePopup } from '../cmps/nice-popup'
 
 
 function FancyBox(props) {
@@ -75,10 +76,10 @@ export class AboutUs extends React.Component {
         count: 1000,
     }
     componentDidMount(){
-        this.interval = setInterval(() => {
-            console.log('Setting Followers Count');
-            this.setState(({ count }) => ({ count: count + utilService.getRandomIntInclusive(5, 20) }))
-        }, 2500)
+        // this.interval = setInterval(() => {
+        //     console.log('Setting Followers Count');
+        //     this.setState(({ count }) => ({ count: count + utilService.getRandomIntInclusive(5, 20) }))
+        // }, 2500)
     }
     componentWillUnmount() {
         clearInterval(this.interval)
@@ -96,6 +97,10 @@ export class AboutUs extends React.Component {
         return (
             <section>
                 <h2>About Us</h2>
+                <NicePopup header={<h1>Martin</h1>} footer='This is footer' top='50%' left='50%' bgc='#7a9aa5' timeout='5000'>
+                    this is the body
+                    <hr/>
+                </NicePopup>
                 <MyErrorBoundary>
 
                 <SplitPane

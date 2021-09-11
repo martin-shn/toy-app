@@ -83,7 +83,6 @@ class _Filter extends React.Component{
     }
 
     setFilter=(filterBy=this.state.filterBy)=>{
-        console.log('filter:',filterBy);
       
         this.props.dispatch({
             type: 'SET_FILTER',
