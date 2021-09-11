@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Select from 'react-select'
 import chroma from 'chroma-js';
+import {DebounceInput} from 'react-debounce-input';
 
 const options = [
     {value:'on-wheels', label: 'On wheels',color:'blue'},
@@ -65,17 +66,15 @@ const colourStyles = {
 
 class _Filter extends React.Component{
     state={
-        filterBy:{sort:new URLSearchParams(window.location.search).get('sortBy')||'name'}
+        filterBy:{...this.props.filterBy}||{}
     }
 
     componentDidMount() {
-        this.setFilter()
+        this.setFilter(this.props.filterBy)
     }
     
 
     handleChange=({target})=>{
-        if(target.name==='sort') this.props.history.push({search:`sortBy=${target.value}`})
-        // if(target.name==='sort') window.location.search=`sortBy=${target.value}`
         this.setState({filterBy:{...this.state.filterBy,[target.name]:target.value}},()=>this.setFilter())
     }
     
@@ -83,9 +82,9 @@ class _Filter extends React.Component{
         this.setState({filterBy:{...this.state.filterBy,labels:labels}},()=>this.setFilter())
     }
 
-    setFilter=()=>{
-        const filterBy = this.state.filterBy
-        // console.log('filter:',filterBy);
+    setFilter=(filterBy=this.state.filterBy)=>{
+        console.log('filter:',filterBy);
+      
         this.props.dispatch({
             type: 'SET_FILTER',
             filterBy
@@ -94,12 +93,19 @@ class _Filter extends React.Component{
     
 
     render(){
-        // console.log(new URLSearchParams(window.location.search).get('sortBy'));
         return <div className="filter">
                     <label>Filter:</label>
-                    <input type="search" name="txt" autoComplete="off" onChange={this.handleChange} placeholder="Filter"/>
+                    <DebounceInput
+                      // minLength={2}
+                      debounceTimeout={1000}
+                      type="search" 
+                      name="txt" 
+                      autoComplete="off"
+                      placeholder="Filter"
+                      value={this.state.filterBy.txt}
+                      onChange={this.handleChange} />
 
-                    <select name="inStock" onChange={this.handleChange}>
+                    <select name="inStock" onChange={this.handleChange} value={this.state.filterBy.inStock}>
                         <option value="all" defaultValue>All</option>
                         <option value="inStock">In stock</option>
                         <option value="outStock">Out of stock</option>
@@ -115,11 +121,15 @@ class _Filter extends React.Component{
                     styles={colourStyles}
                     className="filter-labels"
                     classNamePrefix="labels"
+                    placeholder="Labels"
                 />
                     <select name="sort" onChange={this.handleChange} value={this.state.filterBy.sort} title="Sort by...">
                         <option value="name" defaultValue>Name (A-&gt;Z)</option>
+                        <option value="reverse-name" defaultValue>Name (Z-&gt;A)</option>
                         <option value="price">Price (Low-&gt;High)</option>
+                        <option value="reverse-price">Price (High-&gt;Low)</option>
                         <option value="created">Created date (Newer-&gt;Oldest)</option>
+                        <option value="reverse-created">Created date (Oldest-&gt;Newest)</option>
                     </select>
             </div>
     }

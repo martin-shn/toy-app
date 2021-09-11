@@ -18,8 +18,7 @@ class _ToyDetails extends React.Component{
     }
 
     onBack=()=>{
-        const sortBy = new URLSearchParams(window.location.search).get('sortBy')
-        this.props.history.push({pathname:'/toy',search:sortBy?'sortBy='+sortBy:''})
+        this.props.history.push({pathname:'/toy'})
     }
 
     render(){

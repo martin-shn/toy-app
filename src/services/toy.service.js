@@ -1,72 +1,53 @@
-
-import { storageService } from './async-storage.service.js'
-// import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
+const axios = require('axios');
+// import { storageService } from './async-storage.service.js'
+// import { utilService } from './util.service.js'
 
-const STORAGE_KEY = 'toy'
-const listeners = []
+// const STORAGE_KEY = 'toy'
 
 export const toyService = {
     query,
     getById,
     save,
-    remove,
-    subscribe
-    
+    remove
 }
 window.ts = toyService;
 
 
-function query() {
-    return storageService.query(STORAGE_KEY)
+function query(filterBy={}) {
+    return axios.get('http://localhost:3030/api/toy',{params:filterBy})
+    .then(res=>res.data)
 }
 
 function getById(toyId) {
-    return storageService.get(STORAGE_KEY, toyId)
-    .then(toy=>{
-        if(!toy) return {}
-        toy.reviews = ['Great toy','Amazing...','What a blast']
-        return toy
+    return axios.get(`http://localhost:3030/api/toy/${toyId}`)
+    .then(res=>{
+        if (!res.data) return {}
+        res.data.reviews = ['Great toy','Amazing...','What a blast']
+        return res.data
     })
 }
 
-function remove(toyId) {
-    return storageService.remove(STORAGE_KEY, toyId)
+function remove(toy) {
+    const user = userService.getLoggedinUser()
+    if (user.username!==toy.owner.username&&!user.isAdmin) return Promise.reject('Cannot remove todo - auth issue');
+    return axios.delete(`http://localhost:3030/api/toy/${toy._id}`,{data:{loggedInUser:user}})
 }
 
 function save(toy) {
     if (toy._id) {
         //EDIT
-        return storageService.put(STORAGE_KEY, toy)
+        return axios.put('http://localhost:3030/api/toy',{toy,loggedInUser:userService.getLoggedinUser()})
+        .then(res=>res.data)
     } else {
         //ADD
         toy.owner = userService.getLoggedinUser()
-        delete toy.owner.password
-        return storageService.post(STORAGE_KEY, toy)
+        return axios.post('http://localhost:3030/api/toy',toy)
+        .then(res=>res.data)
+        .catch(err=>{
+            console.log('Cannot add toy (service)',err)
+        })
     }
 }
-
-
-function subscribe(listener) {
-    listeners.push(listener)
-}
-
-function _notifySubscribersToysChanged(toys) {
-    console.log('Notifying Listeners');
-    listeners.forEach(listener => listener(toys))
-}
-
-window.addEventListener('storage', () => {
-    console.log('Storage Changed from another Browser!');
-    query()
-        .then(toys => {
-            _notifySubscribersToysChanged(toys)
-        }) 
-})
-
-// TEST DATA
-// storageService.post(STORAGE_KEY, {vendor: 'Subali Rahok 2', price: 980}).then(x => console.log(x))
-
-
 
 

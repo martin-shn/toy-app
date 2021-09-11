@@ -3,70 +3,28 @@ import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 
 export function loadToys(filterBy={}) {
     return (dispatch) => {
-        toyService.query()
-            .then(toys => {
-                if(filterBy.txt){
-                    const regex = new RegExp(filterBy.txt, 'i');
-                    toys = toys.filter((toy) => regex.test(toy.name));
-                }
-                if(filterBy.inStock){
-                    switch(filterBy.inStock){
-                        case 'inStock':
-                            toys=toys.filter((toy)=>toy.inStock)
-                            break;
-                        case 'outStock':
-                            toys=toys.filter((toy)=>!toy.inStock)
-                            break;
-                        default:
-                    }
-                }
-                if(filterBy.labels && filterBy.labels.length>0){
-                    toys=toys.filter(toy=>filterBy.labels.every(label=>toy.labels.map(label=>label.value).includes(label.value)))
-                }
-                if(filterBy.sort){
-                    switch (filterBy.sort){
-                        case 'name':
-                            toys.sort((a,b)=>a.name.localeCompare(b.name, 'en', {ignorePunctuation:true}))
-                            break
-                        case 'price':
-                            toys.sort((a,b)=>+a.price-+b.price)
-                            break
-                        case 'created':
-                            toys.sort((a,b)=>+b.createdAt-+a.createdAt)
-                            break
-                        default:
-                    }
-                    // console.log(toys);
-                }
-                // console.log('Toys from DB:', toys)
+        toyService.query(filterBy)
+        .then(toys=>{
                 dispatch({
                     type: 'SET_TOYS',
                     toys
                 })
             })
-            .catch(err => {
-                showErrorMsg('Cannot load toys')
-                console.log('Cannot load toys', err)
-            })
-
-        toyService.subscribe((toys) => {
-            console.log('Got notified');
-            dispatch({
-                type: 'SET_TOYS',
-                toys
-            })
+        .catch(err => {
+            showErrorMsg('Cannot load toys')
+            console.log('Cannot load toys', err)
         })
     }
 }
 
-export function onRemoveToy(toyId) {
-    return (dispatch, getState) => {
-        toyService.remove(toyId)
+export function onRemoveToy(toy) {
+    return (dispatch) => {
+        toyService.remove(toy)
             .then(() => {
                 console.log('Deleted Succesfully!');
                 dispatch({
                     type: 'REMOVE_TOY',
-                    toyId
+                    toyId: toy._id
                 })
                 showSuccessMsg('Toy removed')
             })
@@ -90,7 +48,7 @@ export function onAddToy(toy) {
             })
             .catch(err => {
                 showErrorMsg('Cannot add toy')
-                console.log('Cannot add toy', err)
+                console.log('Cannot add toy (action)', err)
             })
     }
 }

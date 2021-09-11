@@ -1,15 +1,14 @@
 export default function ToyPreview({user,toy,history,onRemoveToy}){
     const userAuth = user && (user._id===toy.owner._id || user.isAdmin)
-    const sortBy = new URLSearchParams(window.location.search).get('sortBy')
-    return <tr className="toy-preview" onClick={()=>history.push({pathname:`/toy/${toy._id}`,
-    search:sortBy?'sortBy='+sortBy:''})}>
+    
+    return <tr className="toy-preview" onClick={()=>history.push({pathname:`/toy/${toy._id}`})}>
         <td>
-        {userAuth&&<button onClick={(ev)=>onDelete(ev,toy._id,onRemoveToy)}>Delete</button>}
+        {userAuth&&<button onClick={(ev)=>onDelete(ev,toy,onRemoveToy)}>Delete</button>}
         </td>
         <td>
         {userAuth&&<button onClick={(ev)=>{
             ev.stopPropagation(); 
-            history.push({pathname:`/toy/edit/${toy._id}`,search:sortBy?'sortBy='+sortBy:''})
+            history.push({pathname:`/toy/edit/${toy._id}`})
             }
         }>Edit</button>}
         </td>
@@ -28,7 +27,7 @@ export default function ToyPreview({user,toy,history,onRemoveToy}){
     </tr>
 }
 
-function onDelete(ev,toyId,onRemoveToy){
+function onDelete(ev,toy,onRemoveToy){
     ev.stopPropagation()
-    onRemoveToy(toyId)
+    onRemoveToy(toy)
 }

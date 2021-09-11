@@ -13,7 +13,7 @@ class _ToyApp extends React.Component {
     }
 
     componentDidMount() {
-        // this.props.loadToys()
+        this.props.filterBy?this.props.loadToys(this.props.filterBy):this.props.loadToys()
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -24,24 +24,22 @@ class _ToyApp extends React.Component {
     }
     
 
-    onRemoveToy = (toyId) => {
-        this.props.onRemoveToy(toyId)
+    onRemoveToy = (toy) => {
+        this.props.onRemoveToy(toy)
     }
-    onAddToy = () => {
-       this.props.onAddToy()
-    }
+
     onEditToy = (toy) => {
         const price = +prompt('New price?')
         const toyToSave = { ...toy, price }
         this.props.onEditToy(toyToSave)
     }
+    
     render() {
         const {toys,user}=this.props
         return (
             <div>
-                <ToyFilter history={this.props.history}/>
+                <ToyFilter/>
                 <hr/>
-                <h3>Toys List:</h3>
                 <main>
                     {user&&<ToyAdd/>}
                     {toys.length>0&&<ToyList user={user} toys={toys} history={this.props.history} onRemoveToy={this.props.onRemoveToy}/>}

@@ -105,14 +105,13 @@ class _ToyEdit extends React.Component{
     }
 
     onBack=()=>{
-      const sortBy = new URLSearchParams(window.location.search).get('sortBy')
-        this.props.history.push({pathname:'/toy',search:sortBy?'sortBy='+sortBy:''})
+        this.props.history.push({pathname:'/toy'})
     }
 
     render(){
         const toy = this.state
         if (!toy._id) return <div>Loading...</div>
-        console.log(toy);
+        // console.log(toy);
         return <section className="toy-edit">
             <h2>Name:</h2>
             <input type="text" autoComplete="off" autoFocus onChange={this.handleChange} name="name" value={toy.name}/>

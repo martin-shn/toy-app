@@ -95,23 +95,27 @@ class _ToyAdd extends React.Component{
 
     render(){
         const {name,price,labels,inStock} = this.state
-        return <div className="toy-add">
-            <input type="text" autoComplete="off" name="name" onChange={this.handleChange} value={name}/>
-            <input type="number" autoComplete="off" name="price" onChange={this.handleChange} value={price}/>
-            <Select 
-                value={labels} 
-                onChange={this.handleLabels} 
-                name="labels" 
-                options={options} 
-                closeMenuOnSelect={false} 
-                isMulti 
-                styles={colourStyles}
-                className="toy-add-labels"
-                classNamePrefix="labels"
-            />
-            <input type="checkBox" name="inStock" onChange={this.handleChange} checked={inStock} title="In Stock?"/>
-            <button onClick={this.onAdd}>Add</button>
-        </div>
+        return <section className="toy-add-title">
+          <h5>Add a new toy:</h5>
+          <div className="toy-add">
+              <input type="text" autoComplete="off" name="name" onChange={this.handleChange} value={name} placeholder="Toy name"/>
+              <input type="number" autoComplete="off" name="price" onChange={this.handleChange} value={price} title="Price"/>
+              <Select 
+                  value={labels} 
+                  onChange={this.handleLabels} 
+                  name="labels" 
+                  options={options} 
+                  closeMenuOnSelect={false} 
+                  isMulti 
+                  styles={colourStyles}
+                  className="toy-add-labels"
+                  classNamePrefix="labels"
+                  placeholder="Labels"
+              />
+              <input type="checkBox" name="inStock" onChange={this.handleChange} checked={inStock} title="In Stock?"/>
+              <button onClick={this.onAdd}>Add</button>
+          </div>
+        </section>
     }
 }
 
