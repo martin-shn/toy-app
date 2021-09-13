@@ -6,6 +6,7 @@ import chroma from 'chroma-js';
 import { toyService } from '../services/toy.service';
 import { onEditToy } from '../store/toy.actions';
 
+
 const options = [
     {value:'on-wheels', label: 'On wheels',color:'blue'},
     {value:'box-game', label: 'Box game',color:'green'},
@@ -101,7 +102,9 @@ class _ToyEdit extends React.Component{
 
     onSave=()=>{
         this.props.onEditToy(this.state)
-        .then(()=>this.onBack())
+        .then(()=>{
+          this.onBack()
+        })
     }
 
     onBack=()=>{
@@ -130,6 +133,8 @@ class _ToyEdit extends React.Component{
             </div>
             <h5>Created At: {new Date(toy.createdAt).toLocaleString('en-GB')}</h5>
             <h5>Created by: {toy.owner.fullname}</h5>
+            {toy.updatedAt&&<h5>Last updated At: {new Date(toy.updatedAt).toLocaleString('en-GB')}</h5>}
+            {toy.lastUpdatedBy&&<h5>Last updated by: {toy.lastUpdatedBy.fullname}</h5>}
             <input id="inStock" type="checkBox" name="inStock" onChange={this.handleChange} checked={toy.inStock}/>
             <label htmlFor="inStock">In Stock?</label>
             <button onClick={this.onSave}>Save</button>

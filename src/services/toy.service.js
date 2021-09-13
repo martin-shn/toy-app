@@ -1,5 +1,6 @@
 import { userService } from './user.service.js'
-const axios = require('axios');
+// const axios = require('axios');
+import Axios from 'axios'
 // import { storageService } from './async-storage.service.js'
 // import { utilService } from './util.service.js'
 
@@ -11,6 +12,11 @@ export const toyService = {
     save,
     remove
 }
+
+const axios = Axios.create({
+    withCredentials: true
+});
+
 window.ts = toyService;
 
 
@@ -31,13 +37,13 @@ function getById(toyId) {
 function remove(toy) {
     const user = userService.getLoggedinUser()
     if (user.username!==toy.owner.username&&!user.isAdmin) return Promise.reject('Cannot remove todo - auth issue');
-    return axios.delete(`http://localhost:3030/api/toy/${toy._id}`,{data:{loggedInUser:user}})
+    return axios.delete(`http://localhost:3030/api/toy/${toy._id}`)
 }
 
 function save(toy) {
     if (toy._id) {
         //EDIT
-        return axios.put('http://localhost:3030/api/toy',{toy,loggedInUser:userService.getLoggedinUser()})
+        return axios.put('http://localhost:3030/api/toy',{toy})
         .then(res=>res.data)
     } else {
         //ADD

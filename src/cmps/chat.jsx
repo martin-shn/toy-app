@@ -1,9 +1,11 @@
 import React from 'react'
+import ChatIcon from '@material-ui/icons/Chat';
+import SpeakerNotesOffIcon from '@material-ui/icons/SpeakerNotesOff';
 
 export class Chat extends React.Component{
     state={
         isOpen: false,
-        iconText: 'CHAT',
+        iconText: <ChatIcon/>,
         chatInput: '',
         chat:[]
     }
@@ -23,7 +25,8 @@ export class Chat extends React.Component{
         width:'3rem',
         textAlign:'center',
         lineHeight:'3rem',
-        verticalAlign:'center'
+        verticalAlign:'middle',
+        fontSize: '2rem'
     }
 
     chatStyle={
@@ -40,7 +43,7 @@ export class Chat extends React.Component{
 
     onOpenChat=()=>{
         this.setState({isOpen:!this.state.isOpen},()=>{
-            this.state.isOpen?this.setState({iconText:'X'}):this.setState({iconText:'CHAT'})
+            this.state.isOpen?this.setState({iconText:<SpeakerNotesOffIcon/>}):this.setState({iconText:<ChatIcon/>})
         })
         
     }

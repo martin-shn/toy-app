@@ -6,6 +6,11 @@ body {
     max-width: 800px;
     margin:auto;
 }
+
+main{
+    margin-bottom: 70px;
+}
+
 .main-title {
     text-align: center;
     color:rgba(36, 7, 7, 0.685);
@@ -17,25 +22,34 @@ header {
     padding: 10px;
     margin-bottom: 15px;
 }
+
+header .active{
+    border-bottom: 2px solid #333;
+    background-color: rgba(51, 51, 51,0.2);
+    box-shadow: 0px 6px 5px -2px #333;
+}
+
+.MuiIconButton-label{
+    flex-direction: column;
+    font-size: 0.9rem;
+}
+
 footer{
     background-color: lightskyblue;
     padding: 5px;
-    margin: 10px;
     text-align: center;
+    position:fixed;
+    bottom: 0;
+    margin: 50px 0 0 0;
+    width: 800px;
+    margin: auto;
+    height: 30px;
 }
-nav a{
-    display: inline-block;
-    margin: 3px;
-    padding: 10px;
-    border-bottom: 1px solid transparent;
-    text-decoration: none;
+footer p{
+    margin: 0;
+    line-height: 30px;
+    vertical-align: middle;
 }
-nav a:hover{
-    border-bottom: 1px solid whitesmoke;
-    text-decoration: overline;
-    color: whitesmoke;
-}
-
 
 .user-msg {
     color:white;
@@ -125,6 +139,7 @@ button {
     font-weight: 600;
 }
 
+/* FILTER */
 .filter{
     display: flex;
     gap:10px;
@@ -150,6 +165,7 @@ button {
     color: unset!important;
 }
 
+/* ADD TOY */
 .toy-add-title h5{
     margin-bottom: 5px;
 }
@@ -166,10 +182,12 @@ button {
     align-self: center;
 }
 
+/* TOY DETAILS */
 .toy-details .labels label{
     margin-right: 15px;
 }
 
+/* TOY MAIN */
 main table thead tr td{
     font-weight: 600;
 }
@@ -189,17 +207,8 @@ main table tbody tr:nth-of-type(2n){
     background-color: rgba(255, 69, 0,0.2);
 }
 
-.btn-link {
-    border:0;
-    background-color: transparent;
-    text-decoration: underline;
-    transition: .5s;
-}
-.btn-link:hover {
-    background-color: turquoise;
-    transform: scale(1.1);
-}
 
+/* ABOUT */
 .fancy-box {
     background-color: gold;
     padding: 5px;
@@ -256,3 +265,14 @@ main table tbody tr:nth-of-type(2n){
 .chat .chat-content div span:last-of-type{
     scroll-snap-align: end;
 }
+
+/* HOME PAGE */
+body.home{
+    background-image: url("../img/hero.jpg");
+    height: 100vh;
+    width: 100vw;
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position: right;
+}
+

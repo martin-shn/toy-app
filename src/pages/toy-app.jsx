@@ -6,6 +6,7 @@ import { loadToys, onAddToy, onEditToy, onRemoveToy } from '../store/toy.actions
 import { ToyList } from '../cmps/toy-list.jsx'
 import { ToyAdd } from '../cmps/toy-add.jsx'
 import { Filter as ToyFilter } from '../cmps/filter.jsx'
+// import { updateChart } from '../services/chart.service.js';
 // import { showSuccessMsg } from '../services/event-bus.service.js'
 
 class _ToyApp extends React.Component {
@@ -26,6 +27,7 @@ class _ToyApp extends React.Component {
 
     onRemoveToy = (toy) => {
         this.props.onRemoveToy(toy)
+        // .then(()=>updateChart())
     }
 
     onEditToy = (toy) => {

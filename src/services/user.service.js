@@ -1,4 +1,5 @@
-const axios = require('axios');
+// const axios = require('axios');
+import Axios from 'axios'
 // import { storageService } from './async-storage.service.js'
 
 // const STORAGE_KEY = 'user'
@@ -11,6 +12,10 @@ export const userService = {
     update,
     getLoggedinUser
 }
+
+const axios = Axios.create({
+    withCredentials: true
+});
 
 window.userService = userService;
 

@@ -29,15 +29,16 @@ ToyList.propTypes={
 }
 
 export function ToyList({user,toys,history,onRemoveToy}){
-    return <table>
+    return <table style={{width:'100%',borderSpacing:'0'}}>
         <thead>
             <tr>
-                <td>Delete</td>
-                <td>Edit</td>
-                <td>Name</td>
-                <td>Price</td>
-                <td>Created at</td>
+                <td style={{width:'1px',whiteSpace:'nowrap',padding:'2px 10px'}}>Delete</td>
+                <td style={{width:'1px',whiteSpace:'nowrap',padding:'2px 10px'}}>Edit</td>
+                <td style={{width:'1px',whiteSpace:'nowrap',padding:'2px 10px'}}>Name</td>
+                <td style={{width:'1px',whiteSpace:'nowrap',padding:'2px 10px'}}>Price</td>
+                <td style={{width:'1px',whiteSpace:'nowrap',padding:'2px 10px'}}>Created at</td>
                 <td>Labels</td>
+                <td style={{width:'1px',whiteSpace:'nowrap',padding:'2px 10px'}}>In Stock?</td>
             </tr>
         </thead>
         <tbody>

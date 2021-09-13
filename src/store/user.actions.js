@@ -3,7 +3,7 @@ import { showErrorMsg } from '../services/event-bus.service.js'
 
 export function onLogin(credentials) {
     return (dispatch) => {
-        userService.login(credentials)
+        return userService.login(credentials)
             .then(user => dispatch({
                 type: 'SET_USER',
                 user

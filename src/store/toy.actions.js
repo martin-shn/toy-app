@@ -3,12 +3,13 @@ import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 
 export function loadToys(filterBy={}) {
     return (dispatch) => {
-        toyService.query(filterBy)
+        return toyService.query(filterBy)
         .then(toys=>{
                 dispatch({
                     type: 'SET_TOYS',
                     toys
                 })
+                return toys
             })
         .catch(err => {
             showErrorMsg('Cannot load toys')
@@ -19,7 +20,7 @@ export function loadToys(filterBy={}) {
 
 export function onRemoveToy(toy) {
     return (dispatch) => {
-        toyService.remove(toy)
+        return toyService.remove(toy)
             .then(() => {
                 console.log('Deleted Succesfully!');
                 dispatch({
@@ -57,7 +58,7 @@ export function onEditToy(toyToSave) {
     return (dispatch) => {
         return toyService.save(toyToSave)
             .then(savedToy => {
-                console.log('Updated Toy:', savedToy);
+                // console.log('Updated Toy:', savedToy);
                 dispatch({
                     type: 'UPDATE_TOY',
                     toy: savedToy
@@ -71,5 +72,3 @@ export function onEditToy(toyToSave) {
             })
     }
 }
-
-
