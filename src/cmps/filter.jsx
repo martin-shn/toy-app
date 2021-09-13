@@ -92,7 +92,8 @@ class _Filter extends React.Component{
     
 
     render(){
-        return <div className="filter">
+        return <div className="main-container filter-container">
+        <div className="filter">
                     <label>Filter:</label>
                     <DebounceInput
                       // minLength={2}
@@ -130,6 +131,7 @@ class _Filter extends React.Component{
                         <option value="created">Created date (Newer-&gt;Oldest)</option>
                         <option value="reverse-created">Created date (Oldest-&gt;Newest)</option>
                     </select>
+            </div>
             </div>
     }
 }

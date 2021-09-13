@@ -1,0 +1,26 @@
+footer{
+    background-color: lightskyblue;
+    padding: 5px;
+    text-align: center;
+    // position:fixed;
+    // bottom: 0;
+    margin: 50px 0 0 0;
+    
+    & p{
+        margin: 0;
+        line-height: 30px;
+        vertical-align: middle;
+        max-width: unset;
+    }
+
+    & socials {
+        display: flex;
+    }
+
+    body.home & {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+}
+

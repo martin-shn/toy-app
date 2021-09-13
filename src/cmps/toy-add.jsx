@@ -95,7 +95,7 @@ class _ToyAdd extends React.Component{
 
     render(){
         const {name,price,labels,inStock} = this.state
-        return <section className="toy-add-title">
+        return <section className="toy-add-title main-container">
           <h5>Add a new toy:</h5>
           <div className="toy-add">
               <input type="text" autoComplete="off" name="name" onChange={this.handleChange} value={name} placeholder="Toy name"/>

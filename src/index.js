@@ -5,7 +5,7 @@ import {Provider} from 'react-redux'
 
 import {store} from './store/store'
 import {RootCmp} from './root-cmp';
-import './assets/css/main.css';
+import './assets/styles/styles.scss';
 
 
 ReactDOM.render(

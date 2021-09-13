@@ -1,0 +1,82 @@
+.toy-add-title h5{
+    margin-bottom: 5px;
+}
+
+.toy-add{
+    display: flex;
+    gap:10px;
+    align-items:stretch;
+    background-color: thistle;
+    padding: 10px;
+    flex-direction: column;
+    & label{
+        align-self: left;
+    }
+    > * {
+        min-height: rem(30px);
+    }
+    & .labels__control{
+        border-color: unset!important;
+        border-radius: 0!important;
+        min-height: rem(30px);
+        font-size: 1rem;
+    }
+    & .labels__value-container{
+        min-height: rem(30px);
+        padding: 0;
+    }
+    & .labels__indicator-separator{
+        margin: 0 5px 0;
+    }
+    & .labels__indicator {
+        padding: 0 5px 0;
+        margin-right: 5px;
+    }
+    & .labels__placeholder{
+        color: $clr2;
+    }
+
+    & input[name="inStock"]::before{
+        white-space: pre;
+        content: "In Stock? ";
+        position: relative;
+        top: 8px;
+        left: -65px;
+    }
+
+    @include for-narrow-layout {
+        flex-direction: column;
+    }
+
+    @include for-normal-layout {
+        flex-direction: row;
+        & input[name="inStock"]::before{
+            white-space: pre;
+            content: "In Stock? ";
+            position: relative;
+            top: 21px;
+            left: -10px;
+            font-size: 8px;
+        }
+    }
+
+    @include for-wide-layout {
+        flex-direction: row; 
+        & input[name="inStock"]::before{
+            white-space: pre;
+            content: "In Stock? ";
+            position: relative;
+            top: 21px;
+            left: -10px;
+            font-size: 8px;
+        }
+    }
+}
+
+.toy-add .toy-add-labels{
+    flex-grow: 1;
+}
+
+.toy-add [name="inStock"]{
+    align-self: center;
+}

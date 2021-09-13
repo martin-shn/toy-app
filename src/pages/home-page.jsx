@@ -16,8 +16,8 @@ class _HomePage extends React.Component {
     render() {
         document.body.className='home'
         return (
-            <section className="home-page">
-                <p>
+            <section className="home-page main-container">
+                <p className="main-para">
                     Welcome to my Toy Store
                 </p>
                 

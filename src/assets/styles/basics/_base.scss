@@ -1,0 +1,46 @@
+* {
+    box-sizing: border-box;
+}
+
+::selection {
+    background-color: $clr1;
+    color: #fff;
+}
+
+html {
+    font-family: montserrat, sans-serif;
+    line-height: 1.75;
+    color: $clr2;
+}
+
+body {
+    margin: 0;
+    &.home {
+        background-image: url(../../img/hero.jpg);
+        height: 100vh;
+        width: 100vw;
+        background-size:cover;
+        background-repeat: no-repeat;
+        background-position: right;
+    }
+}
+
+img {
+    width: 100%;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-weight: 400;
+    font-family: montserrat, serif;
+    text-transform: uppercase;
+    margin: 0 0 2rem;
+}
+
+h1 {
+
+}
+
+p {
+    margin: 0 0 2rem;
+    max-width: 46ch;
+}

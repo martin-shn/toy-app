@@ -1,0 +1,39 @@
+.toy-list{
+    font-size: rem(8px);
+    & td:nth-child(5){
+        white-space: unset!important;
+    }
+    & td:nth-child(7){
+        padding: 2px!important;
+    }
+
+    @include for-narrow-layout {
+        font-size: rem(12px);
+        & td:nth-child(5){
+            white-space: unset!important;
+        }
+        & td:nth-child(7){
+            padding: 2px!important;
+        }
+    }
+
+    @include for-normal-layout {
+        font-size: rem(15px);
+        & td:nth-child(5){
+            white-space: unset!important;
+        }
+        & td:nth-child(7){
+            padding: 2px!important;
+        }
+    }
+
+    @include for-wide-layout {
+        font-size: rem(18px); 
+        & td:nth-child(5){
+            white-space: nowrap!important;
+        }
+        & td:nth-child(7){
+            padding: initial!important;
+        }
+    }
+}

@@ -1,0 +1,50 @@
+.chat .sender{
+    background-color: rgba(205, 92, 92,0.3);
+    margin-bottom: 5px;
+    padding: 2px;
+    display: block;
+}
+
+.chat .replier{
+    background-color: rgba(124, 252, 0,0.3);
+    margin-bottom: 5px;
+    padding: 2px;
+    display: block;
+}
+
+.chat .chat-content div span:last-of-type{
+    scroll-snap-align: end;
+}
+
+.chat-content{
+
+    right: 1rem!important;
+    height: 200px!important;
+    & .chat-inner-content{
+        max-height: 150px!important;
+    }
+
+    @include for-narrow-layout {
+        right: 4rem!important;
+        height: 400px!important;
+        & .chat-inner-content{
+            max-height: 350px!important;
+        }   
+    }
+
+    @include for-normal-layout {
+        right: 4rem!important;
+        height: 400px!important;
+        & .chat-inner-content{
+            max-height: 350px!important;
+        }   
+    }
+
+    @include for-wide-layout {
+        right: 4rem!important;
+        height: 400px!important;
+        & .chat-inner-content{
+            max-height: 350px!important;
+        }   
+    }
+}

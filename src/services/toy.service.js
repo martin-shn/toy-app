@@ -6,9 +6,9 @@ import Axios from 'axios'
 
 // const STORAGE_KEY = 'toy'
 
-const BASE_URL = (process.env.NODE_ENV == 'production')
+const BASE_URL = (process.env.NODE_ENV === 'production')
  ? '/api/toy/'
- : '/localhost:3030/api/toy/';
+ : 'http://localhost:3030/api/toy/';
 
 export const toyService = {
     query,

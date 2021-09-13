@@ -29,7 +29,7 @@ ToyList.propTypes={
 }
 
 export function ToyList({user,toys,history,onRemoveToy}){
-    return <table style={{width:'100%',borderSpacing:'0'}}>
+    return <table className="toy-list" style={{width:'100%',borderSpacing:'0'}}>
         <thead>
             <tr>
                 <td style={{width:'1px',whiteSpace:'nowrap',padding:'2px 10px'}}>Delete</td>

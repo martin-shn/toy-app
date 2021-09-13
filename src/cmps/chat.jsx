@@ -34,7 +34,7 @@ export class Chat extends React.Component{
         borderRadius:'3px',
         backgroundColor:'whitesmoke',
         position:'fixed',
-        bottom:'10px',
+        bottom:'70px',
         right:'4rem',
         width: '300px',
         height:'400px',

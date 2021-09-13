@@ -3,9 +3,9 @@ import Axios from 'axios'
 // import { storageService } from './async-storage.service.js'
 
 // const STORAGE_KEY = 'user'
-const BASE_USER_URL = (process.env.NODE_ENV == 'production')
+const BASE_USER_URL = (process.env.NODE_ENV === 'production')
  ? '/api/'
- : '/localhost:3030/api/';
+ : 'http://localhost:3030/api/';
 
 const STORAGE_KEY_LOGGEDIN = 'loggedinUser'
 

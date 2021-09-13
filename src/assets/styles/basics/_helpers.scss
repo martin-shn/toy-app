@@ -1,0 +1,103 @@
+// Font Sizes
+.fs12 { font-size: rem(12px); }
+.fs14 { font-size: rem(14px); }
+.fs18 { font-size: rem(18px); }
+.fs20 { font-size: rem(20px); }
+.fs24 { font-size: rem(24px); }
+.fs28 { font-size: rem(28px); }
+.fs30 { font-size: rem(30px); }
+
+// flex helpers
+
+.flex {
+
+    display: flex;
+
+    > *.full {
+        flex: 1;
+    }
+    &.column {
+        flex-direction: column;
+    }
+    &.justify-center {
+        justify-content: center;
+    }
+    &.align-center {
+        align-items: center;
+    }
+    &.grow{
+        flex-grow: 1;
+    }
+}
+
+// Media helpers
+
+.square-ratio {
+    @include aspect-ratio(1, 1);
+}
+.video-ratio {
+    @include aspect-ratio(16, 9);
+}
+.portrait-ratio {
+    @include aspect-ratio(9, 16);
+}
+
+
+.on-wheels{
+    color:$clr10;
+    background-color: rgba($clr10,0.3);
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.box-game{
+    color:$clr11;
+    background-color: rgba($clr11,0.3);
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.art{
+    color:$clr12;
+    background-color: rgba($clr12,0.3);
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.baby{
+    color:$clr13;
+    background-color: rgba($clr13,0.3);
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.doll{
+    color:$clr14;
+    background-color: rgba($clr14,0.3);
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.puzzle{
+    color:$clr15;
+    background-color: rgba($clr15,0.3);
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.outdoor{
+    color:$clr16;
+    background-color: rgba($clr16,0.3);
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.in-stock{
+    color: $clr-in-stock;
+    font-weight: 600;
+}
+
+.out-stock{
+    color: $clr-out-stock;
+    font-weight: 600;
+}
