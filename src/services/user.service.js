@@ -3,6 +3,10 @@ import Axios from 'axios'
 // import { storageService } from './async-storage.service.js'
 
 // const STORAGE_KEY = 'user'
+const BASE_USER_URL = (process.env.NODE_ENV == 'production')
+ ? '/api/'
+ : '/localhost:3030/api/';
+
 const STORAGE_KEY_LOGGEDIN = 'loggedinUser'
 
 export const userService = {
@@ -20,7 +24,7 @@ const axios = Axios.create({
 window.userService = userService;
 
 function login(credentials) {
-    return axios.post('http://localhost:3030/api/login',credentials)
+    return axios.post(`${BASE_USER_URL}login`,credentials)
     .then(res=>res.data)
     .then(user =>{
         sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
@@ -30,7 +34,7 @@ function login(credentials) {
 }
 
 function signup(credentials) {
-    return axios.post('http://localhost:3030/api/signup', {credentials}).then(res => res.data)
+    return axios.post(`${BASE_USER_URL}signup`, {credentials}).then(res => res.data)
     .then(user => {
         sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
         return user
@@ -38,7 +42,7 @@ function signup(credentials) {
 }
 
 function update(credentials) {
-    return axios.post('http://localhost:3030/api/signup', {credentials,activeUser:getLoggedinUser()}).then(res => res.data)
+    return axios.post(`${BASE_USER_URL}signup`, {credentials,activeUser:getLoggedinUser()}).then(res => res.data)
     .then(user => {
         sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
         return user
@@ -46,7 +50,7 @@ function update(credentials) {
 }
 
 function logout() {
-    return axios.post('http://localhost:3030/api/logout').then(() =>
+    return axios.post(`${BASE_USER_URL}logout`).then(() =>
             sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, null)
         )
         .catch(err=>{

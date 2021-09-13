@@ -6,6 +6,10 @@ import Axios from 'axios'
 
 // const STORAGE_KEY = 'toy'
 
+const BASE_URL = (process.env.NODE_ENV == 'production')
+ ? '/api/toy/'
+ : '/localhost:3030/api/toy/';
+
 export const toyService = {
     query,
     getById,
@@ -21,12 +25,12 @@ window.ts = toyService;
 
 
 function query(filterBy={}) {
-    return axios.get('http://localhost:3030/api/toy',{params:filterBy})
+    return axios.get(`${BASE_URL}`,{params:filterBy})
     .then(res=>res.data)
 }
 
 function getById(toyId) {
-    return axios.get(`http://localhost:3030/api/toy/${toyId}`)
+    return axios.get(`${BASE_URL}${toyId}`)
     .then(res=>{
         if (!res.data) return {}
         res.data.reviews = ['Great toy','Amazing...','What a blast']
@@ -37,18 +41,18 @@ function getById(toyId) {
 function remove(toy) {
     const user = userService.getLoggedinUser()
     if (user.username!==toy.owner.username&&!user.isAdmin) return Promise.reject('Cannot remove todo - auth issue');
-    return axios.delete(`http://localhost:3030/api/toy/${toy._id}`)
+    return axios.delete(`${BASE_URL}${toy._id}`)
 }
 
 function save(toy) {
     if (toy._id) {
         //EDIT
-        return axios.put('http://localhost:3030/api/toy',{toy})
+        return axios.put(`${BASE_URL}`,{toy})
         .then(res=>res.data)
     } else {
         //ADD
         toy.owner = userService.getLoggedinUser()
-        return axios.post('http://localhost:3030/api/toy',toy)
+        return axios.post(`${BASE_URL}`,toy)
         .then(res=>res.data)
         .catch(err=>{
             console.log('Cannot add toy (service)',err)
