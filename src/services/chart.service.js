@@ -1,13 +1,12 @@
 
 import {toyService} from './toy.service.js'
 
-export function updateChart(){
-    return toyService.query()
-    .then(toys=>{
-        // const toys = this.props.toys
+export async function updateChart(){
+    try{
+        const toys = await toyService.query()
         let inStock=0, outStock=0, onWheels=[], boxGame=[], art=[], baby=[], doll=[], puzzle=[], outdoor=[]
         toys.forEach(toy=>{
-            if (toy.inStock) inStock++
+            (toy.inStock) ? inStock++ : outStock++
             toy.labels.forEach(label=>{
                 switch (label.value){
                     case 'on-wheels':
@@ -35,7 +34,6 @@ export function updateChart(){
                 }
             })
         })
-        toys.forEach(toy=>{if (!toy.inStock) outStock++})
 
         return {inStock,outStock,
             onWheels:onWheels.reduce((prev,curr)=>prev+curr,0)/onWheels.length, 
@@ -46,6 +44,7 @@ export function updateChart(){
             puzzle:puzzle.reduce((prev,curr)=>prev+curr,0)/puzzle.length, 
             outdoor:outdoor.reduce((prev,curr)=>prev+curr,0)/outdoor.length
         }
-    });
-
+    }catch(err){
+        console.log('Cannot query toys for dashboard');
+    }
 }

@@ -4,8 +4,8 @@ import Axios from 'axios'
 
 // const STORAGE_KEY = 'user'
 const BASE_USER_URL = (process.env.NODE_ENV === 'production')
- ? '/api/'
- : 'http://localhost:3030/api/';
+ ? '/api/auth/'
+ : 'http://localhost:3030/api/auth/';
 
 const STORAGE_KEY_LOGGEDIN = 'loggedinUser'
 
@@ -13,7 +13,7 @@ export const userService = {
     login,
     logout,
     signup,
-    update,
+    // update,
     getLoggedinUser
 }
 
@@ -23,40 +23,38 @@ const axios = Axios.create({
 
 window.userService = userService;
 
-function login(credentials) {
-    return axios.post(`${BASE_USER_URL}login`,credentials)
-    .then(res=>res.data)
-    .then(user =>{
+async function login(credentials) {
+    try{
+        const res = await axios.post(`${BASE_USER_URL}login`,credentials)
+        const user = res.data
         sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
         return user;
-    })
-    .catch(err=>console.log('Cannot login',err))
+    } catch (err) {
+        console.log('Cannot login (service)',err)
+        throw err
+    }
 }
 
-function signup(credentials) {
-    return axios.post(`${BASE_USER_URL}signup`, {credentials}).then(res => res.data)
-    .then(user => {
+async function signup(credentials) {
+    try {
+        const res = await axios.post(`${BASE_USER_URL}signup`, {credentials})
+        const user = res.data
         sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
         return user
-    })
+    } catch (err){
+        console.log('Cannot signup (service)', err)
+        throw err
+    }
 }
 
-function update(credentials) {
-    return axios.post(`${BASE_USER_URL}signup`, {credentials,activeUser:getLoggedinUser()}).then(res => res.data)
-    .then(user => {
-        sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
-        return user
-    })
-}
-
-function logout() {
-    return axios.post(`${BASE_USER_URL}logout`).then(() =>
-            sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, null)
-        )
-        .catch(err=>{
-            sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, null)
-            return Promise.resolve()
-        })
+async function logout() {
+    try{
+        await axios.post(`${BASE_USER_URL}logout`)
+        sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, null)
+    } catch(err){
+        sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, null)
+        return Promise.resolve()
+    }
 }
 
 function getLoggedinUser() {

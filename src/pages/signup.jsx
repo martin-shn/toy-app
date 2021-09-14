@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { onSignup } from '../store/user.actions.js';
@@ -7,6 +8,7 @@ import { useFormik } from 'formik';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { NicePopup } from '../cmps/nice-popup.jsx';
 
 const validateInput = yup.object({
     fullname: yup.string('Enter your full name').required('Full name is required'),
@@ -14,22 +16,25 @@ const validateInput = yup.object({
     password: yup.string('Enter your password').required('Password is required'),
 });
 
+let form=null;
+
 function _Signup(props) {
-    // state = {};
 
-    // handleChange = ({ target }) => {
-    //     this.setState({ [target.name]: target.value });
-    // };
-
-    let form=null;
-    setTimeout(()=>{
+    useEffect( () => {
         if (form) form.focus()
-    },50)
+     }, []);
 
 
-    const signup = (credentials) => {
-        props.onSignup(credentials);
-        props.history.push('/toy')
+    const [isError, setIsError] = useState(false)
+
+
+    const signup = async (credentials) => {
+        try {
+            await props.onSignup(credentials);
+            props.history.push('/toy')
+        } catch(err){
+            setIsError(true)
+        }
     };
 
 
@@ -50,6 +55,9 @@ function _Signup(props) {
 
     return (
         <form onSubmit={formik.handleSubmit} autoComplete='off'>
+            {isError&&<NicePopup header={<h1>Cannot Signup</h1>} footer='Please contact admin' top='50%' left='50%' bgc='#f66'>
+                    Something went wrong.
+                </NicePopup>}
             <TextField
                 id='fullname'
                 fullWidth

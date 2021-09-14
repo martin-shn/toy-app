@@ -1,47 +1,46 @@
 import { userService } from "../services/user.service.js";
-import { showErrorMsg } from '../services/event-bus.service.js'
 
 export function onLogin(credentials) {
-    return (dispatch) => {
-        return userService.login(credentials)
-            .then(user => dispatch({
+    return async (dispatch) => {
+        try{
+            const user = await userService.login(credentials)
+            return dispatch({
                 type: 'SET_USER',
                 user
-            }))
-            .catch(err => {
-                showErrorMsg('Cannot login')
-                console.log('Cannot login', err)
             })
+        } catch(err){
+            console.log('Cannot login (actions)', err)
+            throw err
+        }
     }
 }
 
 export function onSignup(credentials) {
-    return (dispatch) => {
-        userService.signup(credentials)
-            .then(user => {
-                dispatch({
-                    type: 'SET_USER',
-                    user
-                })
+    return async (dispatch) => {
+        try {
+            const user = await userService.signup(credentials)
+            return dispatch({
+                type: 'SET_USER',
+                user
             })
-            .catch(err => {
-                showErrorMsg('Cannot signup')
-                console.log('Cannot signup', err)
-            })
-
+        } catch(err) {
+            console.log('Cannot signup (actions)', err)
+            throw err
+        }
     }
 }
 
 export function onLogout() {
-    return (dispatch) => {
-        userService.logout()
-            .then(() => dispatch({
+    return async (dispatch) => {
+        try {
+            await userService.logout()
+            return dispatch({
                 type: 'SET_USER',
                 user: null
-            }))
-            .catch(err => {
-                showErrorMsg('Cannot logout')
-                console.log('Cannot logout', err)
             })
+        } catch(err) {
+                console.log('Cannot logout', err)
+                throw err
+        }
     }
 }

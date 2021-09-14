@@ -13,6 +13,7 @@ import Menu from '@material-ui/core/Menu';
 import TextField from '@material-ui/core/TextField';
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
+import { NicePopup } from './nice-popup.jsx';
 
 import { onLogin, onLogout } from '../store/user.actions.js';
 // import { updateChart } from '../services/chart.service.js';
@@ -26,7 +27,8 @@ class _AppHeader extends React.Component {
         anchorEl:null,
         username:'',
         password:'',
-        isOpen:false
+        isOpen:false,
+        error: false
     }
 
     activeLink=this.props.location.pathname.substr(1);
@@ -41,12 +43,16 @@ class _AppHeader extends React.Component {
         }
     }
     
-    onLogin = () => {
+    onLogin = async () => {
         this.setState({isOpen:false})
         this.handleClose()
         const credentials = {username:this.state.username,password:this.state.password}
-        this.props.onLogin(credentials)
-        .then(()=>this.props.history.push('/toy'));
+        try{
+            await this.props.onLogin(credentials)
+            this.props.history.push('/toy')
+        } catch(err){
+            this.setState({error:true})
+        }
     };
     
     onLogout = () => {
@@ -57,6 +63,7 @@ class _AppHeader extends React.Component {
 
     form=null;
     handleMenu = (ev) => {
+        ev.stopPropagation()
         this.setState({anchorEl:ev.currentTarget},()=>{if (this.form) this.form.focus()});
     };
     
@@ -84,8 +91,16 @@ class _AppHeader extends React.Component {
         document.body.addEventListener('click',()=>{
             if (this.state.isOpen) this.setState({isOpen:false})
         })
+        
+        setTimeout(() => {
+            this.setState({error:false})
+        }, 10000);
+
         return (
-            <header className="main-container full main-header">
+            <header className="main-header">
+                {this.state.error&&<NicePopup header={<h1>Cannot Login</h1>} footer='Please try again' top='50%' left='50%' bgc='#f66'>
+                    Wrong username and/or password
+                </NicePopup>}
                 <AppBar position='static'>
                     <Toolbar>
                         {/* <IconButton edge='start' style={{marginRight: '10px'}} color='inherit' aria-label='menu'>
@@ -122,7 +137,7 @@ class _AppHeader extends React.Component {
                                     aria-label="account of current user"
                                     aria-controls="menu-appbar"
                                     aria-haspopup="true"
-                                    onClick={this.handleMenu}
+                                    onClick={(ev)=>{this.handleMenu(ev)}}
                                     color="inherit"
                                 >
                                     <AccountCircle />

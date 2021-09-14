@@ -23,22 +23,20 @@ class _AboutUs extends React.Component {
             {name:'Beer-sheva', pos:{lat:31.25181, lng:34.7913}, openingHours:'Sun-Thu: 9:00-18:00, Fri:9:00-14:00', tel:'08-6748514'},
             {name:'Afula', pos:{lat:32.60907, lng:35.2892}, openingHours:'Sun-Thu: 8:30-19:00, Fri:10:00-16:00', tel:'04-6645120'},
             {name:'Jerusalem', pos:{lat:31.771959, lng:35.217018}, openingHours:'Sun-Thu: 9:30-20:00', tel:'02-4005147'},
-        ]
+        ],
+        zoom:7,
     }
     
     onMapClicked = (props, map, ev) => {
-        console.log('props', props);
-        console.log('map', map);
-        console.log('ev', ev);
-        this.setState({ center: { lat: ev.latLng.lat(), lng: ev.latLng.lng() } })
+        this.setState({zoom:15, center: { lat: ev.latLng.lat(), lng: ev.latLng.lng() } })
     }
 
     onMarkerClicked=(idx)=>{
-        this.setState({isInfoWindowOn: true, infoIdx:idx, center:this.state.branches[idx].pos})
+        this.setState({zoom:15, isInfoWindowOn: true, infoIdx:idx, center:this.state.branches[idx].pos})
     }
 
     onInfoWindowClose=()=>{
-        this.setState({isInfoWindowOn: false}) 
+        this.setState({zoom:7, isInfoWindowOn: false}) 
     }
 
     style = {
@@ -60,7 +58,7 @@ class _AboutUs extends React.Component {
                     <Map
                         containerStyle={this.style}
                         google={this.props.google}
-                        zoom={6}
+                        zoom={this.state.zoom}
                         initialCenter={this.state.center}
                         onClick={this.onMapClicked}
                         center={this.state.center}
@@ -212,6 +210,6 @@ class _AboutUs extends React.Component {
     // }
 
 
-    export const AboutUs = GoogleApiWrapper({
-        apiKey: ('AIzaSyBJt1HJ2UX7AlXY9pgE_f3VQena2BBVFVg')
+export const AboutUs = GoogleApiWrapper({
+        apiKey: ('AIzaSyCjlsAsJI0Vd-wbFqIbs_zppWj9Txa2X2E')
     })(_AboutUs)

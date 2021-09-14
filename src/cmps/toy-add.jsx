@@ -4,6 +4,8 @@ import Select from 'react-select'
 import chroma from 'chroma-js';
 
 import {onAddToy} from '../store/toy.actions.js'
+import {onLogout} from '../store/user.actions.js'
+import { NicePopup } from './nice-popup.jsx';
 
 const options = [
     {value:'on-wheels', label: 'On wheels',color:'blue'},
@@ -72,6 +74,8 @@ class _ToyAdd extends React.Component{
         price:0,
         labels: [],
         inStock: true,
+        isError:false,
+        isAdding:false
     }
 
     handleChange=({target})=>{
@@ -83,19 +87,31 @@ class _ToyAdd extends React.Component{
         this.setState({labels})
     }
 
-    onAdd=()=>{
-        this.props.onAddToy(this.state)
+    onAdd= async ()=>{
+      try {
+        await this.setState({isAdding:true})
+        const toyToAdd = {...this.state}
+        delete toyToAdd.isError
+        await this.props.onAddToy(toyToAdd)
         this.setState({
             name:'',
             price:0,
             labels: [],
             inStock: true,
+            isAdding: false
         })
+      } catch(err){
+        console.log('Cannot add toy', err);
+        this.setState({isError:true})
+      }
     }
 
     render(){
         const {name,price,labels,inStock} = this.state
-        return <section className="toy-add-title main-container">
+        return <section className="toy-add-title">
+              {this.state.isError&&<NicePopup header={<h1>Cannot Add toy</h1>} footer='' top='50%' left='50%' bgc='#f66' timeout='3000' timeoutCb={()=>{this.props.onLogout()}}>
+                    Please login
+              </NicePopup>}
           <h5>Add a new toy:</h5>
           <div className="toy-add">
               <input type="text" autoComplete="off" name="name" onChange={this.handleChange} value={name} placeholder="Toy name"/>
@@ -113,7 +129,7 @@ class _ToyAdd extends React.Component{
                   placeholder="Labels"
               />
               <input type="checkBox" name="inStock" onChange={this.handleChange} checked={inStock} title="In Stock?"/>
-              <button onClick={this.onAdd}>Add</button>
+              <button onClick={this.onAdd} disabled={this.state.isAdding}>Add</button>
           </div>
         </section>
     }
@@ -127,6 +143,7 @@ function mapStateToProps(state){
 
 const mapDispatchToProps = {
     onAddToy,
+    onLogout
 }
 
 

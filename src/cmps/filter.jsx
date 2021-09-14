@@ -97,7 +97,7 @@ class _Filter extends React.Component{
                     <label>Filter:</label>
                     <DebounceInput
                       // minLength={2}
-                      debounceTimeout={1000}
+                      debounceTimeout={400}
                       type="search" 
                       name="txt" 
                       autoComplete="off"

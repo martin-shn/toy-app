@@ -3,7 +3,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import { green } from '@material-ui/core/colors';
 
 export default function ToyPreview({user,toy,history,onRemoveToy}){
-    const userAuth = user && (user._id===toy.owner._id || user.isAdmin)
+    const userAuth = user && (user._id===toy.createdBy._id || user.isAdmin)
     
     return <tr className="toy-preview" onClick={()=>history.push({pathname:`/toy/${toy._id}`})}>
         <td style={{width:'1px',whiteSpace:'nowrap',padding:'2px 10px'}}>
@@ -20,7 +20,7 @@ export default function ToyPreview({user,toy,history,onRemoveToy}){
             {toy.name}
         </td>
         <td style={{width:'1px',whiteSpace:'nowrap',padding:'2px 10px'}}>
-            {toy.price}
+            {toy.price.toFixed(2)}$
         </td>
         <td style={{width:'1px',whiteSpace:'nowrap',padding:'2px 10px'}}>
             {new Date(toy.createdAt).toLocaleString('en-Gb')}

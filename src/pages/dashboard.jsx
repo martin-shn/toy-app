@@ -7,49 +7,44 @@ import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import AppBar from '@material-ui/core/AppBar';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import { updateChart } from '../services/chart.service.js';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-      width: '100%',
-      backgroundColor: theme.palette.background.paper,
-    },
-  }));
-
   
-function _Dashboard(props){
+class _Dashboard extends React.Component{
+    state={
+      inStock:0,
+      outStock:0,
+      onWheels:0,
+      boxGame:0,
+      art:0,
+      baby:0,
+      doll:0,
+      puzzle:0, 
+      outdoor:0, 
+      value:0,
+    }
 
-    const [inStock, setInStock] = React.useState(0);
-    const [outStock, setOutStock] = React.useState(0);
-    const [onWheels, setOnWheels] = React.useState(0);
-    const [boxGame, setBoxGame] = React.useState(0);
-    const [art, setArt] = React.useState(0);
-    const [baby, setBaby] = React.useState(0);
-    const [doll, setDoll] = React.useState(0);
-    const [puzzle, setPuzzle] = React.useState(0);
-    const [outdoor, setOutdoor] = React.useState(0);
+    async componentDidMount() {
+      const {inStock,outStock,onWheels,boxGame,art,baby,doll,puzzle,outdoor} = await updateChart()
+      this.setState({inStock,outStock,onWheels,boxGame,art,baby,doll,puzzle,outdoor})
+    }
+    
+    
+    
+    // const [value, setValue] = React.useState(0);
 
-    updateChart()
-    .then(({inStock,outStock,onWheels,boxGame,art,baby,doll,puzzle,outdoor} )=>{
-        setInStock(inStock)
-        setOutStock(outStock)
-        setOnWheels(onWheels)
-        setBoxGame(boxGame)
-        setArt(art)
-        setBaby(baby)
-        setDoll(doll)
-        setPuzzle(puzzle)
-        setOutdoor(outdoor) 
-    });
+    handleChange = (event, newValue) => {
+        this.setState({value:newValue});
+    };
 
-    const stockData = {
+    render(){
+      const stockData = {
         labels: ['In stock', 'Out of stock'],
         datasets:[
             {
                 label:'In stock',
-                data: [inStock, outStock],
+                data: [this.state.inStock, this.state.outStock],
                 backgroundColor:[
                     'rgba(255, 99, 132, 0.3)',
                     'rgba(54, 162, 235, 0.3)'],
@@ -67,8 +62,9 @@ function _Dashboard(props){
         labels: ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle', 'Outdoor'],
         datasets:[
             {
-                label:'Avg. price per category',
-                data: [onWheels, boxGame, art, baby, doll, puzzle, outdoor],
+                // label:'Avg. price per category',
+                label:'',
+                data: [this.state.onWheels, this.state.boxGame, this.state.art, this.state.baby, this.state.doll, this.state.puzzle, this.state.outdoor],
                 backgroundColor:[
                     'rgba(0, 0, 255,0.3)',
                     'rgba(0, 128, 0,0.3)',
@@ -91,19 +87,12 @@ function _Dashboard(props){
             }
         ]
     }
-    
-    const classes = useStyles();
-    const [value, setValue] = React.useState(0);
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-      };
-
-    return <Paper className={classes.root}>
+      return <Paper className="charts" style={{flexGrow:"1", width: '100%'}}>
         <AppBar position="static" color="default">
         <Tabs
-            value={value}
-            onChange={handleChange}
+            value={this.state.value}
+            onChange={this.handleChange}
             indicatorColor="primary"
             textColor="primary"
             centered
@@ -112,14 +101,21 @@ function _Dashboard(props){
             <Tab label="Avg. price per category"/>
         </Tabs>
         </AppBar>
-        <TabPanel value={value} index={0}>
+        <TabPanel value={this.state.value} index={0}>
                 <Pie data={stockData} width={null} height={null} options={{aspectRatio:3}}/>
             </TabPanel>
-            <TabPanel value={value} index={1}>
-                <Bar data={pricesData} width={null} height={null} options={{aspectRatio:3}}/>
+            <TabPanel value={this.state.value} index={1}>
+                <Bar data={pricesData} width={null} height={null} options={{
+                  aspectRatio:3,
+                  plugins:{
+                    legend: {display: false},
+                  }
+                  }}/>
             </TabPanel>
     </Paper>
-    }
+  }
+}
+    
 
 // function mapStateToProps(state){
 //     return {
@@ -136,9 +132,12 @@ function _Dashboard(props){
 // }
 
 
-function TabPanel(props) {
-    const { children, value, index, ...other } = props;
+class TabPanel extends React.Component {
+  state={
+  }
   
+  render(){
+    const { children, value, index, ...other} = this.props
     return (
       <div
         role="tabpanel"
@@ -153,8 +152,8 @@ function TabPanel(props) {
           </Box>
         )}
       </div>
-    );
-  }
+  )}
+}
   
   TabPanel.propTypes = {
     children: PropTypes.node,

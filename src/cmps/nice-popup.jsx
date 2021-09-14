@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect } from 'react'
 
 NicePopup.defaultProps={
     top:0,
@@ -10,6 +10,13 @@ var timer;
 
 export function NicePopup(props){
     
+    useEffect(() => {
+        return () => {
+            clearTimeout(timer)
+            setIsVisible(false)
+        }
+    }, [])
+
     var [isVisible, setIsVisible]= useState(true);
 
     const style = {
@@ -39,6 +46,7 @@ export function NicePopup(props){
     const closePopup=()=>{
         clearTimeout(timer)
         setIsVisible(false)
+        if (props.timeoutCb) props.timeoutCb()
     }
 
     return(

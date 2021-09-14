@@ -76,18 +76,20 @@ class _ToyEdit extends React.Component{
         inStock: false,
     }
 
-    componentDidMount(){
+    async componentDidMount(){
       const {user} = this.props
       if(!user) this.onBack()
       else {
         const toyId = this.props.match.params.toyId
-        toyService.getById(toyId)
-        .then(toy=>{
-          if(Object.keys(toy).length===0) this.onBack()
-          const userAuth = user && (user._id===toy.owner._id || user.isAdmin)
-          if (!userAuth) this.onBack()
-          else this.setState({...toy})
-          })
+        try{
+            const toy = await toyService.getById(toyId)
+            if(Object.keys(toy).length===0) this.onBack()
+            const userAuth = user && (user._id===toy.createdBy._id || user.isAdmin)
+            if (!userAuth) this.onBack()
+            else this.setState({...toy})
+        } catch(err){
+          console.log('Cannot get toy by Id');
+        }
       }
     }
 
@@ -100,11 +102,13 @@ class _ToyEdit extends React.Component{
         this.setState({...this.state,labels})
     }
 
-    onSave=()=>{
-        this.props.onEditToy(this.state)
-        .then(()=>{
-          this.onBack()
-        })
+    onSave= async ()=>{
+      try{  
+        await this.props.onEditToy(this.state)
+        this.onBack()
+      } catch(err){
+        console.log('Cannot edit toy');
+      }
     }
 
     onBack=()=>{
@@ -132,7 +136,7 @@ class _ToyEdit extends React.Component{
                 />
             </div>
             <h5>Created At: {new Date(toy.createdAt).toLocaleString('en-GB')}</h5>
-            <h5>Created by: {toy.owner.fullname}</h5>
+            <h5>Created by: {toy.createdBy.fullname}</h5>
             {toy.updatedAt&&<h5>Last updated At: {new Date(toy.updatedAt).toLocaleString('en-GB')}</h5>}
             {toy.lastUpdatedBy&&<h5>Last updated by: {toy.lastUpdatedBy.fullname}</h5>}
             <input id="inStock" type="checkBox" name="inStock" onChange={this.handleChange} checked={toy.inStock}/>

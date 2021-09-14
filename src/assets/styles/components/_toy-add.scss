@@ -1,5 +1,11 @@
-.toy-add-title h5{
+.toy-add-title {
+    grid-column: 1/-1;
+    @include for-narrow-layout {
+        grid-column: 2;
+    }
+    & h5{
     margin-bottom: 5px;
+    }
 }
 
 .toy-add{
