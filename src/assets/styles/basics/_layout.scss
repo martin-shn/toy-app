@@ -1,8 +1,8 @@
 .main-container {
     display: grid;
     column-gap: 1.6rem;
-    
-    grid-template-columns: 0px 1fr 0px; 
+
+    grid-template-columns: 0px 1fr 0px;
 
     > * {
         grid-column: 2;
@@ -11,26 +11,173 @@
     > .full {
         grid-column: 1 / -1;
     }
-    
+
     @include for-narrow-layout {
         grid-template-columns:
-        1fr
-        minmax(auto, $mobile-breakpoint)
-        1fr;  
+            1fr
+            minmax(auto, $mobile-breakpoint)
+            1fr;
     }
 
     @include for-normal-layout {
         grid-template-columns:
-        1fr
-        minmax(auto, $narrow-breakpoint)
-        1fr;  
+            1fr
+            minmax(auto, $narrow-breakpoint)
+            1fr;
     }
 
     @include for-wide-layout {
         grid-template-columns:
-        1fr
-        minmax(auto, $normal-breakpoint)
-        1fr;  
+            1fr
+            minmax(auto, $normal-breakpoint)
+            1fr;
     }
 }
 
+.toy-list {
+    grid-column: 2;
+    display: none;
+    text-align: center;
+    font-weight: 600;
+    column-gap: 5px;
+
+    @include for-normal-layout {
+        display: grid;
+        grid-template-columns: 
+            60px //delete
+            60px //edit
+            100px //name
+            100px //price
+            100px //createdAt
+            1fr//labels
+            100px; //inStock
+        // grid-template-columns:
+        // 1fr
+        // minmax(auto, $normal-breakpoint)
+        // 1fr;
+    }
+}
+
+.toy-preview{
+    border: 1px solid #333;
+    border-radius: 3px;
+    display: grid;
+    column-gap: 5px;
+    margin-bottom: 10px;
+    align-items: center;
+
+
+    grid-template-areas: 
+    'name name'
+    'price price'
+    'createdat createdat'
+    'labels labels'
+    'instock instock'
+    'delete edit';
+
+    // @include for-mobile-layout {
+    //     grid-template-rows: repeat(5, 1fr) minmax(0px, 1fr);
+    //     grid-template-columns: repeat(2, 1fr);
+    // }
+
+    & .delete{
+        grid-area: delete;
+        text-align: right;
+        & button {font-size: 1.1rem;}
+    }
+    & .edit{
+        grid-area: edit;
+        & button{font-size: 1.1rem;}
+    }
+    & .name{
+        grid-area: name;
+        word-break: break-word;
+        &::before{
+            content: "Name: ";
+            font-weight: 600;
+        }
+    }
+    & .price{
+        grid-area: price;
+        &::before{
+            content: "Price: ";
+            font-weight: 600;
+        }
+    }
+    & .createdat{
+        grid-area: createdat;
+        &::before{
+            content: "Created at: ";
+            font-weight: 600;
+        }
+    }
+    & .labels{
+        grid-area: labels;
+        &::before{
+            content: "Labels: ";
+            font-weight: 600;
+        }
+    }
+    & .instock{
+        grid-area: instock;
+        &::before{
+            content: "In Stock: ";
+            font-weight: 600;
+        }
+        & svg{
+            vertical-align: middle;
+        }
+    }
+
+    @include for-normal-layout {
+        border: 0;
+        margin-bottom: 4px;
+        display: grid;
+
+        grid-template-areas: 'delete edit name price createdat labels instock' ;
+        grid-template-rows: 1fr;
+        grid-template-columns: 
+        minmax(auto, 60px) 
+        minmax(auto, 60px) 
+        minmax(auto, 100px) 
+        minmax(auto, 100px) 
+        minmax(auto, 100px) 
+        1fr 
+        100px;
+
+        & .delete{
+            text-align: center;
+            & button{font-size: initial;}
+        }
+        & .edit{
+            text-align: center;
+            & button{font-size: initial;}
+        }
+        & .name{
+            &::before{
+                content: "";
+            }
+        }
+        & .price{
+            &::before{
+                content: "";
+            }
+        }
+        & .createdat{
+            &::before{
+                content: "";
+            }
+        }
+        & .labels{
+            &::before{
+                content: "";
+            }
+        }
+        & .instock{
+            text-align: right;
+            &::before{
+                content: "";
+            } 
+        }   
+    }
+}

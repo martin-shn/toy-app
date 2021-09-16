@@ -88,29 +88,37 @@ class _Dashboard extends React.Component{
         ]
     }
 
+    const isMobile = navigator.userAgentData.mobile;
+
       return <Paper className="charts" style={{flexGrow:"1", width: '100%'}}>
         <AppBar position="static" color="default">
-        <Tabs
-            value={this.state.value}
-            onChange={this.handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            centered
-        >
-            <Tab label="Qty in stock" />
-            <Tab label="Avg. price per category"/>
-        </Tabs>
+          <Tabs
+              value={this.state.value}
+              onChange={this.handleChange}
+              indicatorColor="primary"
+              textColor="primary"
+              centered
+              style={{width:'100%'}}
+          >
+              <Tab label="Qty in stock" />
+              <Tab label="Avg. price per category"/>
+          </Tabs>
         </AppBar>
         <TabPanel value={this.state.value} index={0}>
-                <Pie data={stockData} width={null} height={null} options={{aspectRatio:3}}/>
+                <Pie data={stockData} width={null} height={null} options={isMobile?{aspectRatio:1}:{aspectRatio:3}}/>
             </TabPanel>
             <TabPanel value={this.state.value} index={1}>
-                <Bar data={pricesData} width={null} height={null} options={{
-                  aspectRatio:3,
-                  plugins:{
-                    legend: {display: false},
-                  }
-                  }}/>
+                <Bar data={pricesData} width={null} height={null} options=
+                {isMobile?
+                  {aspectRatio:1,
+                    plugins:{
+                      legend: {display: false},
+                  }}:
+                  {aspectRatio:3,
+                    plugins:{
+                      legend: {display: false},
+                  }}}                 
+                  />
             </TabPanel>
     </Paper>
   }

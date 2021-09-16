@@ -33,8 +33,7 @@ export function onRemoveToy(toy) {
 export function onAddToy(toy) {
     return async (dispatch) => {
         try{
-            const res = await toyService.add(toy)
-            const savedToy = await toyService.getById(res.insertedId)
+            const savedToy = await toyService.add(toy)
             return dispatch({
                 type: 'ADD_TOY',
                 toy: savedToy

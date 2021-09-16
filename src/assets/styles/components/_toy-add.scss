@@ -1,10 +1,13 @@
-.toy-add-title {
-    grid-column: 1/-1;
+.toy-add-container {
+    // grid-column: 1/-1;
+    margin-bottom: 15px;
     @include for-narrow-layout {
         grid-column: 2;
+        // margin-bottom: initial;
     }
+
     & h5{
-    margin-bottom: 5px;
+        margin-bottom: 5px!important;
     }
 }
 

@@ -1,0 +1,10 @@
+.about{
+    & .MuiButtonGroup-contained{
+        flex-direction: column;
+    }
+    @include for-normal-layout {
+        & .MuiButtonGroup-contained{
+            flex-direction: row;
+        }
+    }
+}

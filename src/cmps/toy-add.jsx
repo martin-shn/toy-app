@@ -108,7 +108,7 @@ class _ToyAdd extends React.Component{
 
     render(){
         const {name,price,labels,inStock} = this.state
-        return <section className="toy-add-title">
+        return <section className="toy-add-container">
               {this.state.isError&&<NicePopup header={<h1>Cannot Add toy</h1>} footer='' top='50%' left='50%' bgc='#f66' timeout='3000' timeoutCb={()=>{this.props.onLogout()}}>
                     Please login
               </NicePopup>}

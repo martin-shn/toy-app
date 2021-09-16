@@ -24,9 +24,13 @@ class _AboutUs extends React.Component {
             {name:'Afula', pos:{lat:32.60907, lng:35.2892}, openingHours:'Sun-Thu: 8:30-19:00, Fri:10:00-16:00', tel:'04-6645120'},
             {name:'Jerusalem', pos:{lat:31.771959, lng:35.217018}, openingHours:'Sun-Thu: 9:30-20:00', tel:'02-4005147'},
         ],
-        zoom:7,
+        zoom:null,
     }
     
+    componentDidMount(){
+        this.setState({zoom:7})
+    }
+
     onMapClicked = (props, map, ev) => {
         this.setState({zoom:15, center: { lat: ev.latLng.lat(), lng: ev.latLng.lng() } })
     }
@@ -40,15 +44,15 @@ class _AboutUs extends React.Component {
     }
 
     style = {
-        width: '80%',
+        width: '100%',
         height: '300px',
         position: 'relative',
         margin: '0 auto'
     }
 
     render() {
-        return (
-            <section>
+        if (!this.state.zoom) return <div>Loading...</div>
+        return <section className="about">
                 <h3 style={{textAlign:'center'}}>Our branches</h3>
 
                 <ButtonGroup variant="contained" style={{display:'flex', justifyContent: 'center', boxShadow: 'none', marginBottom:'5px'}}>
@@ -94,7 +98,7 @@ class _AboutUs extends React.Component {
                 {/* </MyErrorBoundary> */}
 
             </section>
-        )
+        
     }
 }
 
