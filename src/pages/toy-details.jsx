@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { toyService } from '../services/toy.service';
 import {Chat} from '../cmps/chat'
+import {Loader} from '../cmps/loader'
 
 
 class _ToyDetails extends React.Component{
@@ -17,6 +18,7 @@ class _ToyDetails extends React.Component{
                 this.setState({toy})
         }catch(err){
             console.log('Cannot het by Id');
+            this.onBack();
         }
     }
 
@@ -26,7 +28,7 @@ class _ToyDetails extends React.Component{
 
     render(){
         const {toy} = this.state
-        if (Object.keys(toy).length===0) return <div>Loading...</div>
+        if (Object.keys(toy).length===0) return <Loader/>
         // console.log(toy);
         return <section className="toy-details">
             <h2>Name: {toy.name}</h2>

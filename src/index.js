@@ -9,13 +9,13 @@ import './assets/styles/styles.scss';
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Provider store={store}>
       <Router>
         <RootCmp />
-    </Router>
-    </Provider>
-  </React.StrictMode>,
+      </Router>
+    </Provider>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 

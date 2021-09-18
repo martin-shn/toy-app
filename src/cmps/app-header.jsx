@@ -28,13 +28,14 @@ class _AppHeader extends React.Component {
         username:'',
         password:'',
         isOpen:false,
-        error: false
+        error: false,
+        activeLink:null
     }
 
-    activeLink=this.props.location.pathname.substr(1);
-
+    
     componentDidMount() {
         // updateChart()
+        this.setState({activeLink:this.props.location.pathname.substr(1)})
     }
     
     componentDidUpdate(prevProps, prevState) {
@@ -49,6 +50,7 @@ class _AppHeader extends React.Component {
         const credentials = {username:this.state.username,password:this.state.password}
         try{
             await this.props.onLogin(credentials)
+            this.setState({isOpen:false, activeLink:'toy'})
             this.props.history.push('/toy')
         } catch(err){
             this.setState({error:true})
@@ -56,9 +58,11 @@ class _AppHeader extends React.Component {
     };
     
     onLogout = () => {
-        this.setState({isOpen:false})
         this.handleClose()
-        this.props.onLogout();
+        this.props.onLogout().then(()=>{
+            this.setState({isOpen:false, activeLink:'home'})
+            this.props.history.push('/');
+        });
     };
 
     form=null;
@@ -92,7 +96,7 @@ class _AppHeader extends React.Component {
             if (this.state.isOpen) this.setState({isOpen:false})
         })
         
-        setTimeout(() => {
+        if (this.state.error===true) setTimeout(() => {
             this.setState({error:false})
         }, 10000);
 
@@ -111,24 +115,29 @@ class _AppHeader extends React.Component {
                         </Typography>
                         <div className={`hamburger-menu-btn ${this.state.isOpen?'open':'close'}`} onClick={(ev)=>{this.toggleMenu(ev)}}>{this.state.isOpen?<CloseIcon/>:<MenuIcon/>}</div>
                         <div className="hamburger">
-                        <Button color='inherit' className={this.activeLink==='home'?'active':''} onClick={()=>{
+                        <Button color='inherit' className={this.state.activeLink==='home'?'active':''} onClick={()=>{
                             this.setState({isOpen:false})
-                            this.activeLink='home'
+                            this.setState({activeLink:'home'})
                             this.props.history.push('/')
                             }}>Home</Button>
-                        <Button color='inherit' className={this.activeLink==='toy'?'active':''} onClick={()=>{
+                        <Button color='inherit' className={this.state.activeLink==='toy'?'active':''} onClick={()=>{
                             this.setState({isOpen:false})
-                            this.activeLink='toy'
+                            this.setState({activeLink:'toy'})
                             this.props.history.push('/toy')
                             }}>Our Toys</Button>
-                        <Button color='inherit' className={this.activeLink==='dashboard'?'active':''} onClick={()=>{
+                        <Button color='inherit' className={this.state.activeLink==='dashboard'?'active':''} onClick={()=>{
                             this.setState({isOpen:false})
-                            this.activeLink='dashboard'
+                            this.setState({activeLink:'dashboard'})
                             this.props.history.push('/dashboard')
                             }}>Dashboard</Button>
-                        <Button color='inherit' className={this.activeLink==='about'?'active':''} onClick={()=>{
+                        {user && user.isAdmin && <Button color='inherit' className={this.state.activeLink==='admin'?'active':''} onClick={()=>{
                             this.setState({isOpen:false})
-                            this.activeLink='about'
+                            this.setState({activeLink:'admin'})
+                            this.props.history.push('/admin')
+                            }}>Admin</Button>}
+                        <Button color='inherit' className={this.state.activeLink==='about'?'active':''} onClick={()=>{
+                            this.setState({isOpen:false})
+                            this.setState({activeLink:'about'})
                             this.props.history.push('/about')
                             }}>About</Button>
                         {user && (
@@ -186,7 +195,7 @@ class _AppHeader extends React.Component {
                                     <Button variant="contained" color="primary" onClick={this.onLogin}>Login</Button>
                                 </form>
                                 <MenuItem onClick={()=>{
-                                    this.setState({isOpen:false})
+                                    this.setState({isOpen:false, activeLink:null})
                                     this.handleClose()
                                     this.props.history.push('/signup')
                                     }}>Signup</MenuItem>

@@ -3,7 +3,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import { green } from '@material-ui/core/colors';
 
 export default function ToyPreview({user,toy,history,onRemoveToy}){
-    const userAuth = user && (user._id===toy.createdBy._id || user.isAdmin)
+    const userAuth = user && user.isAdmin
     
     return <div className="toy-preview" onClick={()=>history.push({pathname:`/toy/${toy._id}`})}>
         <div className='delete'>

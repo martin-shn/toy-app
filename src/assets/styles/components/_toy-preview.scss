@@ -37,3 +37,15 @@
         }
     }
 }
+
+
+.toy-preview{
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 3px;
+    transition: all .5s;
+}
+
+.toy-preview:hover{
+    background-color: rgba(255, 69, 0,0.2);
+}

@@ -11,12 +11,14 @@
 @import "basics/buttons.scss";
 
 // Components
+@import "components/loader.scss";
 @import "components/main-header.scss";
 @import "components/main-footer.scss";
 @import "components/filter.scss";
 @import "components/chat.scss";
 @import "components/toy-preview.scss";
 @import "components/toy-add.scss";
+@import "components/user-preview.scss";
 
 //pages
 @import "pages/home-page.scss";
@@ -25,3 +27,4 @@
 @import "pages/toy-edit.scss";
 @import "pages/about.scss";
 @import "pages/charts.scss";
+@import "pages/user-edit.scss";

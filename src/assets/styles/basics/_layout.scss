@@ -57,6 +57,23 @@
         // 1fr;
     }
 }
+.user-list {
+    grid-column: 2;
+    display: none;
+    text-align: center;
+    font-weight: 600;
+    column-gap: 5px;
+
+    @include for-normal-layout {
+        display: grid;
+        grid-template-columns: 
+            60px //delete
+            60px //edit
+            1fr //name
+            1fr //username
+            100px //isAdmin
+    }
+}
 
 .toy-preview{
     border: 1px solid #333;
@@ -174,6 +191,103 @@
             }
         }
         & .instock{
+            text-align: right;
+            &::before{
+                content: "";
+            } 
+        }   
+    }
+}
+
+.user-preview{
+    border: 1px solid #333;
+    border-radius: 3px;
+    display: grid;
+    column-gap: 5px;
+    margin-bottom: 10px;
+    align-items: center;
+
+
+    grid-template-areas: 
+    'name name'
+    'username username'
+    'is-admin is-admin'
+    'delete edit';
+
+    // @include for-mobile-layout {
+    //     grid-template-rows: repeat(5, 1fr) minmax(0px, 1fr);
+    //     grid-template-columns: repeat(2, 1fr);
+    // }
+
+    & .delete{
+        grid-area: delete;
+        text-align: right;
+        & button {font-size: 1.1rem;}
+    }
+    & .edit{
+        grid-area: edit;
+        & button{font-size: 1.1rem;}
+    }
+    & .name{
+        grid-area: name;
+        word-break: break-word;
+        &::before{
+            content: "Name: ";
+            font-weight: 600;
+        }
+    }
+    & .username{
+        grid-area: username;
+        word-break: break-word;
+        &::before{
+            content: "Userame: ";
+            font-weight: 600;
+        }
+    }
+    & .is-admin{
+        grid-area: is-admin;
+        &::before{
+            content: "Is Admin? ";
+            font-weight: 600;
+        }
+        & svg{
+            vertical-align: middle;
+        }
+    }
+
+    @include for-normal-layout {
+        border: 0;
+        margin-bottom: 4px;
+        display: grid;
+
+        grid-template-areas: 'delete edit name username is-admin' ;
+        grid-template-rows: 1fr;
+        grid-template-columns: 
+        minmax(auto, 60px) 
+        minmax(auto, 60px) 
+        1fr 
+        1fr 
+        minmax(auto, 100px) ;
+
+        & .delete{
+            text-align: center;
+            & button{font-size: initial;}
+        }
+        & .edit{
+            text-align: center;
+            & button{font-size: initial;}
+        }
+        & .name{
+            &::before{
+                content: "";
+            }
+        }
+        & .username{
+            &::before{
+                content: "";
+            }
+        }
+        & .is-admin{
             text-align: right;
             &::before{
                 content: "";

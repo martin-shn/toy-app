@@ -29,11 +29,12 @@ ToyList.propTypes = {
 };
 
 export function ToyList({ user, toys, history, onRemoveToy }) {
+    const userAuth = user && user.isAdmin
     return (
         <>
             <div className='toy-list' style={{ width: '100%'}}>
-                <div style={{ gridColumn:'1'}}>Delete</div>
-                <div style={{ gridColumn:'2'}}>Edit</div>
+                {userAuth&&<div style={{ gridColumn:'1'}}>Delete</div>}
+                {userAuth&&<div style={{ gridColumn:'2'}}>Edit</div>}
                 <div style={{ gridColumn:'3'}}>Name</div>
                 <div style={{ gridColumn:'4'}}>Price</div>
                 <div style={{ gridColumn:'5'}}>Created at</div>

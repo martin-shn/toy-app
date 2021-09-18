@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Select from 'react-select'
 import chroma from 'chroma-js';
 
+import { Loader } from '../cmps/loader';
 import { toyService } from '../services/toy.service';
 import { onEditToy } from '../store/toy.actions';
 
@@ -84,7 +85,7 @@ class _ToyEdit extends React.Component{
         try{
             const toy = await toyService.getById(toyId)
             if(Object.keys(toy).length===0) this.onBack()
-            const userAuth = user && (user._id===toy.createdBy._id || user.isAdmin)
+            const userAuth = user && user.isAdmin
             if (!userAuth) this.onBack()
             else this.setState({...toy})
         } catch(err){
@@ -117,7 +118,7 @@ class _ToyEdit extends React.Component{
 
     render(){
         const toy = this.state
-        if (!toy._id) return <div>Loading...</div>
+        if (!toy._id) return <Loader/>
         // console.log(toy);
         return <section className="toy-edit">
             <h2>Name:</h2>

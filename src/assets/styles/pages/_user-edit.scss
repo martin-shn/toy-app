@@ -1,0 +1,14 @@
+.user-edit{
+    > * {
+        margin-bottom: 15px;
+    }
+    
+    > input:not(#isAdmin){
+        font-size: 1.3rem;
+        height: 2.5rem;
+    }
+    
+    h2, h3{
+        margin: 0;
+    }
+}

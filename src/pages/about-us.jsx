@@ -3,6 +3,7 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { blue } from '@material-ui/core/colors';
+import { Loader } from '../cmps/loader';
 // import PropTypes from 'prop-types'
 
 // import { CSSTransitionGroup } from 'react-transition-group'
@@ -51,7 +52,7 @@ class _AboutUs extends React.Component {
     }
 
     render() {
-        if (!this.state.zoom) return <div>Loading...</div>
+        if (!this.state.zoom) return <Loader/>
         return <section className="about">
                 <h3 style={{textAlign:'center'}}>Our branches</h3>
 
