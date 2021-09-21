@@ -17,11 +17,10 @@ class _ReviewList extends React.Component{
     
     render(){
         const {user,reviews} = this.props
-        if (!user) return <></>
         return <div className="reviews">
             {reviews.map((review,idx)=>{
             return <div key={idx} className="review">
-                {(review.byUser._id===user._id||user.isAdmin)&&<Button onClick={()=>{this.props.removeReview(review._id)}} color="secondary" title="Delete review">X</Button>}
+                {user&&(review.byUser._id===user._id||user.isAdmin)&&<Button onClick={()=>{this.props.removeReview(review._id)}} color="secondary" title="Delete review">X</Button>}
                 <a className="name" href={`/user/${review.byUser._id}`}><span>Name:</span>{review.byUser.fullname}</a> 
                 <label className="date"><span>Date:</span>{new Date(Date.parse(review.date)).toLocaleString('en-GB')}</label> 
                 <div className="reviews-stars">

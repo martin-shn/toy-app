@@ -29,8 +29,8 @@ class _UserDetails extends React.Component{
     }
 
     render(){
-        const currUser = userService.getLoggedinUser()
-        if (!(currUser)) this.props.history.push('/')
+        // const currUser = userService.getLoggedinUser()
+        // if (!(currUser)) this.props.history.push('/')
         const {user} = this.state
         if (Object.keys(user).length===0) return <Loader/>
         // console.log(user);
