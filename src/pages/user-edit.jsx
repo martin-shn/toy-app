@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { Loader } from '../cmps/loader';
+import Button from '@material-ui/core/Button';
 import { userService } from '../services/user.service';
 
 
@@ -63,8 +64,10 @@ class _UserEdit extends React.Component{
             {user.updatedAt&&<h5>Last updated At: {new Date(user.updatedAt).toLocaleString('en-GB')}</h5>}
             <input id="isAdmin" type="checkBox" disabled={user.isOwner?true:false} name="isAdmin" onChange={this.handleChange} checked={user.isAdmin}/>
             <label htmlFor="isAdmin">Is Admin?</label>
-            <button onClick={this.onSave}>Save</button>
-            <button onClick={this.onBack}>Back</button>
+            <div className="btns">
+              <Button variant="contained" color="primary" onClick={this.onSave}>Save</Button>
+              <Button variant="contained" onClick={this.onBack}>Back</Button>
+            </div>
         </section>
     }
 }

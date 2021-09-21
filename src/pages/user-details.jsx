@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { userService } from '../services/user.service';
 import {Loader} from '../cmps/loader.jsx'
+import Button from '@material-ui/core/Button';
+import {ReviewList} from '../cmps/review-list'
 
 
 class _UserDetails extends React.Component{
@@ -22,12 +24,13 @@ class _UserDetails extends React.Component{
     }
 
     onBack=()=>{
-        this.props.history.push({pathname:'/admin'})
+        // this.props.history.push({pathname:'/admin'})
+        window.history.back();
     }
 
     render(){
         const currUser = userService.getLoggedinUser()
-        if (!(currUser && currUser.isAdmin)) this.props.history.push('/')
+        if (!(currUser)) this.props.history.push('/')
         const {user} = this.state
         if (Object.keys(user).length===0) return <Loader/>
         // console.log(user);
@@ -37,7 +40,8 @@ class _UserDetails extends React.Component{
             <h5>Created At: {new Date(Date.parse(user.createdAt)).toLocaleString('en-GB')}</h5>
             {user.updatedAt&&<h5>Last updated At: {new Date(user.updatedAt).toLocaleString('en-GB')}</h5>}
             <h4 className={user.isAdmin?'in-stock':'out-stock'}>{user.isAdmin?'Admin':'NOT Admin'}</h4>
-            <button onClick={this.onBack}>Back</button>
+            <ReviewList userId={this.props.match.params.userId}/>
+            <Button variant="contained" color="primary" onClick={this.onBack}>Back</Button>
         </section>
     }
 }

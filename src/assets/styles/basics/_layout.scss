@@ -34,29 +34,33 @@
     }
 }
 
-.toy-list {
+.toy-list-container {
     grid-column: 2;
-    display: none;
-    text-align: center;
-    font-weight: 600;
-    column-gap: 5px;
+    display: grid;
+    grid-template-columns: 
+    // 1fr
+    minmax(auto, $mobile-breakpoint);
+    // 1fr;
+    gap: 15px;
 
+    @include for-narrow-layout {
+        display: grid;
+        grid-template-columns: 
+        repeat(2, 1fr);
+        // 1fr
+        // minmax(auto, $normal-breakpoint);
+        // 1fr;
+    }
     @include for-normal-layout {
         display: grid;
         grid-template-columns: 
-            60px //delete
-            60px //edit
-            100px //name
-            100px //price
-            100px //createdAt
-            1fr//labels
-            100px; //inStock
-        // grid-template-columns:
+        repeat(4, 1fr);
         // 1fr
-        // minmax(auto, $normal-breakpoint)
+        // minmax(auto, $normal-breakpoint);
         // 1fr;
     }
 }
+
 .user-list {
     grid-column: 2;
     display: none;
@@ -80,22 +84,31 @@
     border-radius: 3px;
     display: grid;
     column-gap: 5px;
-    margin-bottom: 10px;
+    // margin-bottom: 10px;
     align-items: center;
 
+    width: 100%;
 
     grid-template-areas: 
+    'img img'
     'name name'
     'price price'
-    'createdat createdat'
     'labels labels'
     'instock instock'
     'delete edit';
+    
+    // grid-template-rows: repeat(6, 1fr) minmax(0px, 1fr);
+    grid-template-columns: 1fr 1fr;
 
     // @include for-mobile-layout {
     //     grid-template-rows: repeat(5, 1fr) minmax(0px, 1fr);
     //     grid-template-columns: repeat(2, 1fr);
     // }
+
+    & img{
+        grid-area: img;
+        width: 80%;
+    }
 
     & .delete{
         grid-area: delete;
@@ -109,10 +122,13 @@
     & .name{
         grid-area: name;
         word-break: break-word;
-        &::before{
-            content: "Name: ";
-            font-weight: 600;
-        }
+        font-weight: 600;
+        font-size: 1.6rem;
+
+        // &::before{
+        //     content: "Name: ";
+        //     font-weight: 600;
+        // }
     }
     & .price{
         grid-area: price;
@@ -121,19 +137,12 @@
             font-weight: 600;
         }
     }
-    & .createdat{
-        grid-area: createdat;
-        &::before{
-            content: "Created at: ";
-            font-weight: 600;
-        }
-    }
     & .labels{
         grid-area: labels;
-        &::before{
-            content: "Labels: ";
-            font-weight: 600;
-        }
+        // &::before{
+        //     content: "Labels: ";
+        //     font-weight: 600;
+        // }
     }
     & .instock{
         grid-area: instock;
@@ -146,57 +155,63 @@
         }
     }
 
-    @include for-normal-layout {
-        border: 0;
-        margin-bottom: 4px;
-        display: grid;
+    // @include for-normal-layout {
+    //     border: 0;
+    //     margin-bottom: 4px;
+    //     display: grid;
 
-        grid-template-areas: 'delete edit name price createdat labels instock' ;
-        grid-template-rows: 1fr;
-        grid-template-columns: 
-        minmax(auto, 60px) 
-        minmax(auto, 60px) 
-        minmax(auto, 100px) 
-        minmax(auto, 100px) 
-        minmax(auto, 100px) 
-        1fr 
-        100px;
+    //     grid-template-areas: 'delete edit name price createdat labels instock' ;
+    //     grid-template-areas: 'img img'
+    //     'name name' 
+    //     'price price' 
+    //     'createdat createdat' 
+    //     'labels labels' 
+    //     'instock instock'
+    //     'dalate edit' ;
+    //     grid-template-rows: 1fr;
+    //     grid-template-columns: 
+    //     minmax(auto, 100px)
+    //     minmax(auto, 100px);
 
-        & .delete{
-            text-align: center;
-            & button{font-size: initial;}
-        }
-        & .edit{
-            text-align: center;
-            & button{font-size: initial;}
-        }
-        & .name{
-            &::before{
-                content: "";
-            }
-        }
-        & .price{
-            &::before{
-                content: "";
-            }
-        }
-        & .createdat{
-            &::before{
-                content: "";
-            }
-        }
-        & .labels{
-            &::before{
-                content: "";
-            }
-        }
-        & .instock{
-            text-align: right;
-            &::before{
-                content: "";
-            } 
-        }   
-    }
+    //     & img{
+
+    //     }
+
+    //     & .delete{
+    //         text-align: center;
+    //         & button{font-size: initial;}
+    //     }
+    //     & .edit{
+    //         text-align: center;
+    //         & button{font-size: initial;}
+    //     }
+    //     & .name{
+    //         &::before{
+    //             content: "";
+    //         }
+    //     }
+    //     & .price{
+    //         &::before{
+    //             content: "";
+    //         }
+    //     }
+    //     & .createdat{
+    //         &::before{
+    //             content: "";
+    //         }
+    //     }
+    //     & .labels{
+    //         &::before{
+    //             content: "";
+    //         }
+    //     }
+    //     & .instock{
+    //         text-align: right;
+    //         &::before{
+    //             content: "";
+    //         } 
+    //     }   
+    // }
 }
 
 .user-preview{

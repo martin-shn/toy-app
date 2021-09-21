@@ -1,0 +1,29 @@
+.review-add-container{
+    grid-column: 2;
+
+    & h5{
+        margin-bottom: 5px;
+    }
+    & .review-add{
+        display: flex;
+        flex-direction: column;
+        width: 255px;
+        margin: auto;
+        & .rating-stars{
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: space-around;
+        }
+        & textarea{
+            height: 3.5rem;
+            border-radius: 5px;
+        }
+        & Button{
+            margin-top: 5px;
+            &:hover{
+                background-color: rgba(245, 0, 87,0.2);
+            }
+        }
+    }
+}
+

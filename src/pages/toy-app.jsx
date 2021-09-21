@@ -44,7 +44,7 @@ class _ToyApp extends React.Component {
                 <ToyFilter/>
                 <hr/>
                 <main className="main-container">
-                    {user&&<ToyAdd/>}
+                    {user?.isAdmin&&<ToyAdd/>}
                     {toys.length>0&&<ToyList user={user} toys={toys} history={this.props.history} onRemoveToy={this.props.onRemoveToy}/>}
                     {toys.length===0&&<div>Nothing to show here yet. Please add some toys.</div>}
                     {!user&&<strong>To add/edit toys - you must login!</strong>}

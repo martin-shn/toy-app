@@ -92,6 +92,7 @@ class _ToyAdd extends React.Component{
         await this.setState({isAdding:true})
         const toyToAdd = {...this.state}
         delete toyToAdd.isError
+        delete toyToAdd.isAdding
         await this.props.onAddToy(toyToAdd)
         this.setState({
             name:'',

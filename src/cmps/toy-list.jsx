@@ -29,18 +29,9 @@ ToyList.propTypes = {
 };
 
 export function ToyList({ user, toys, history, onRemoveToy }) {
-    const userAuth = user && user.isAdmin
+    // const userAuth = user && user.isAdmin
     return (
         <>
-            <div className='toy-list' style={{ width: '100%'}}>
-                {userAuth&&<div style={{ gridColumn:'1'}}>Delete</div>}
-                {userAuth&&<div style={{ gridColumn:'2'}}>Edit</div>}
-                <div style={{ gridColumn:'3'}}>Name</div>
-                <div style={{ gridColumn:'4'}}>Price</div>
-                <div style={{ gridColumn:'5'}}>Created at</div>
-                <div style={{ gridColumn:'6'}}>Labels</div>
-                <div style={{ gridColumn:'7'}}>In Stock?</div>
-            </div>
             <div className="toy-list-container">
                 {toys.map((toy) => (
                     <ToyPreview key={toy._id} user={user} toy={toy} history={history} onRemoveToy={onRemoveToy} />

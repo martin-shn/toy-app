@@ -16,17 +16,15 @@ export default function ToyPreview({user,toy,history,onRemoveToy}){
             }
         }>Edit</button>}
         </div>
+        <img alt="Toy img" src={toy.imgUrl?toy.imgUrl:`https://robohash.org/${toy.name}?set=set4`} />
         <div className='name'>
             {toy.name}
         </div>
         <div className='price'>
             {toy.price.toFixed(2)}$
         </div>
-        <div className='createdat'>
-            {new Date(toy.createdAt).toLocaleString('en-Gb')}
-        </div>
-        <div className='labels'>
-            {toy.labels.map((label,idx)=><span key={label.value}>{idx===0?label.label:', ' + label.label}</span>)}
+        <div className="labels">
+            <h6>{toy.labels.map(label=><label key={label.value} className={label.value}>{label.label}</label>)}</h6>
         </div>
         <div className='instock'>
             {toy.inStock?<CheckCircleIcon style={{color:green[500]}}/>:<CancelIcon color='secondary'/>}

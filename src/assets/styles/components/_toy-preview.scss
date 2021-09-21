@@ -1,40 +1,16 @@
 .toy-list{
     font-size: rem(8px);
-    & td:nth-child(5){
-        white-space: unset!important;
-    }
-    & td:nth-child(7){
-        padding: 2px!important;
-    }
 
     @include for-narrow-layout {
         font-size: rem(12px);
-        & td:nth-child(5){
-            white-space: unset!important;
-        }
-        & td:nth-child(7){
-            padding: 2px!important;
-        }
     }
 
     @include for-normal-layout {
         font-size: rem(15px);
-        & td:nth-child(5){
-            white-space: unset!important;
-        }
-        & td:nth-child(7){
-            padding: 2px!important;
-        }
     }
 
     @include for-wide-layout {
         font-size: rem(18px); 
-        & td:nth-child(5){
-            white-space: nowrap!important;
-        }
-        & td:nth-child(7){
-            padding: initial!important;
-        }
     }
 }
 
@@ -43,7 +19,41 @@
     cursor: pointer;
     padding: 5px;
     border-radius: 3px;
+    text-align: center;
     transition: all .5s;
+    & .labels{
+        word-break: break-all;
+    }
+    & .labels label{
+        margin-right: 5px;
+        white-space: nowrap;
+        line-height: 1.75rem;
+    }
+    & h6{
+        margin-bottom: 0;
+    }
+    & img{
+        margin: auto;
+    }
+    & .delete button{
+        background-color: rgb(233, 147, 147);
+    }
+    & .edit button{
+        background-color: rgb(150, 233, 147);
+    }
+    & button{
+        margin: 15px 0;
+        cursor: pointer;
+        border-radius: 4px;
+        border: 1px solid #333;
+        padding: 5px;
+        width: 100%;
+        transition: all .3s;
+        &:hover{
+            box-shadow: 0 0 5px #333;
+            transition: all .3s;
+        }
+    }
 }
 
 .toy-preview:hover{

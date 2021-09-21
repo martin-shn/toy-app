@@ -1,4 +1,5 @@
 .toy-edit{
+    text-align: center;
     > * {
         margin-bottom: 15px;
     }
@@ -10,5 +11,40 @@
     
     h2, h3{
         margin: 0;
+    }
+    
+    & #toy-pic{
+        font-size: unset!important;
+        margin-left: 0;
+        width: 255px;
+        @include for-narrow-layout {
+            margin-left: 15px;
+        }
+    }
+
+    & .labels{
+        width: 255px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    & img{
+        display: block;
+        width: 80%;
+        @include for-normal-layout {
+            width: 40%;
+        }
+        margin: 20px auto;
+    }
+    & .btns{
+        & Button:first-child{
+            margin-right: 15px;
+        }
+        Button{
+            margin-top: 25px;
+        }
+    }
+    #inStock{
+        margin-right: 10px;
     }
 }

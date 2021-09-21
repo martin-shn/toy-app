@@ -2,9 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Select from 'react-select'
 import chroma from 'chroma-js';
+import Button from '@material-ui/core/Button';
 
 import { Loader } from '../cmps/loader';
 import { toyService } from '../services/toy.service';
+import {uploadImg} from '../services/cloudinary-service'
 import { onEditToy } from '../store/toy.actions';
 
 
@@ -103,6 +105,11 @@ class _ToyEdit extends React.Component{
         this.setState({...this.state,labels})
     }
 
+    handleFile = async (ev) => {
+      const imgUrl = await uploadImg(ev)
+      this.setState({imgUrl})
+    }
+
     onSave= async ()=>{
       try{  
         await this.props.onEditToy(this.state)
@@ -121,6 +128,12 @@ class _ToyEdit extends React.Component{
         if (!toy._id) return <Loader/>
         // console.log(toy);
         return <section className="toy-edit">
+            <img alt="Toy img" src={toy.imgUrl?toy.imgUrl:`https://robohash.org/${toy.name}?set=set4`} />
+            <label htmlFor="toy-pic">Choose a toy image:</label>
+            <input type="file"
+              id="toy-pic" name="toy-img"
+              accept="image/png, image/jpeg"
+              onChange={this.handleFile}/>
             <h2>Name:</h2>
             <input type="text" autoComplete="off" autoFocus onChange={this.handleChange} name="name" value={toy.name}/>
             <h3>Price:</h3>
@@ -142,8 +155,10 @@ class _ToyEdit extends React.Component{
             {toy.lastUpdatedBy&&<h5>Last updated by: {toy.lastUpdatedBy.fullname}</h5>}
             <input id="inStock" type="checkBox" name="inStock" onChange={this.handleChange} checked={toy.inStock}/>
             <label htmlFor="inStock">In Stock?</label>
-            <button onClick={this.onSave}>Save</button>
-            <button onClick={this.onBack}>Back</button>
+            <div className="btns">
+              <Button variant="contained" color="primary" onClick={this.onSave}>Save</Button>
+              <Button variant="contained" onClick={this.onBack}>Back</Button>
+            </div>
         </section>
     }
 }

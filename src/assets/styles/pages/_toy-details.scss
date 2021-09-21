@@ -1,3 +1,25 @@
-.toy-details .labels label{
-    margin-right: 15px;
+.toy-details {
+    text-align: center;
+    & span{
+        font-weight: 600;
+    }
+    & .labels{
+        word-break: break-all;
+        & label{
+            margin-right: 15px;
+            white-space: nowrap;
+            line-height: 2.75rem;
+        }
+    }
+    & img{
+        width: 80%;
+        @include for-normal-layout {
+            width: 40%;
+        }
+        margin: 20px auto;
+    }
+    & Button{
+        margin-top: 25px;
+    }
 }
+

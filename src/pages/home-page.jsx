@@ -21,12 +21,10 @@ class _HomePage extends React.Component {
                     Welcome to my Toy Store
                 </p>
                 
-                <NicePopup header={<h1>Welcome</h1>} footer='All rights reserved' top='50%' left='50%' bgc='#79a8c5' timeout='5000'>
-                    Feel free to use this app,<br/>
-                    navigate in the upper menu<br/>
-                    and don't forget to register.
-                    <hr/>
-                    Press ESC to close this window
+                <NicePopup header={<h1>NOTICE</h1>} footer={<small>Press ESC to close this window</small>} top='50%' left='50%' bgc='#ffdf00' timeout='5000'>
+                    All orders are shipped <br/> within 2 business days.<br/><br/>
+                    <b>FREE SHIPPING FOR LIMITED TIME</b>
+                    
                 </NicePopup>
             </section >
         )

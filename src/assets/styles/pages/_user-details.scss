@@ -1,4 +1,4 @@
-.user-edit{
+.user-details{
     text-align: center;
     padding-top: 20px;
     > * {
@@ -12,16 +12,5 @@
     
     h2, h3{
         margin: 20px 0;
-    }
-
-    #isAdmin{
-        margin-right: 10px;
-    }
-
-    & .btns{
-        margin-top: 15px;
-        & Button:first-child{
-            margin-right: 20px;
-        }
     }
 }
