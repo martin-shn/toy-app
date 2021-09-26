@@ -22,14 +22,15 @@ export class Chat extends React.Component {
 
     componentWillUnmount() {
         socketService.off(CHAT_MSG_IN);
+        socketService.off(TYPING);
         socketService.terminate();
         clearTimeout(this.timer);
         this.props.onClose();
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps!==this.props){
-            this.setState({chat: this.props.chatLog || []})
+        if (prevProps!==this.props && this.props.chatLog.length===0){
+            this.setState({chat: []})
         }
     }
     

@@ -7,7 +7,7 @@ import {ReviewAdd} from '../cmps/review-add'
 import {ReviewList} from '../cmps/review-list'
 import Button from '@material-ui/core/Button';
 import {onEditToyChat} from '../store/toy.actions'
-import { socketService, ADMIN_MSG } from '../services/socket.service.js'
+import { socketService, ADMIN_MSG, CHAT_MSG_IN, TYPING } from '../services/socket.service.js'
 
 
 class _ToyDetails extends React.Component{
@@ -26,6 +26,14 @@ class _ToyDetails extends React.Component{
             this.onBack();
         }
     }
+
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps.toys!==this.props.toys){
+            console.log('updated');
+            this.componentDidMount()
+        }
+    }
+    
 
     onBack=()=>{
         this.props.history.push({pathname:'/toy'})
@@ -65,10 +73,14 @@ class _ToyDetails extends React.Component{
             </div>
             <Button variant="contained" color="primary" onClick={this.onBack}>Back</Button>
             {user?.isAdmin&&<Button variant="outlined" color="primary" onClick={()=>{
-                this.onUpdateChat([])
-                socketService.setup()
-                socketService.emit(ADMIN_MSG, "refresh")
-                this.setState({toy:{...this.state.toy, chat: []}, chat: []}, ()=>{console.log(this.state);})
+                this.setState({toy:{...this.state.toy, chat: []}},()=>{
+                    this.updateToy();
+                    socketService.setup()
+                    socketService.emit(ADMIN_MSG, "refresh")
+                    socketService.off(CHAT_MSG_IN)
+                    socketService.off(TYPING)
+                    this.props.history.push('/toy')
+                })
                 }}>Delete chat log</Button>}
             <Chat toyId={toy._id} user={this.props.user} onClose={this.updateToy} chatLog={toy?.chat} onUpdateChat={this.onUpdateChat}/>
         </section>

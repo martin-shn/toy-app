@@ -1,7 +1,7 @@
 import io from 'socket.io-client';
 
 export const CONNECT = 'connection';
-export const DISCONNECT = 'disconnect';
+export const DISCONNECT = 'disconnecti';
 export const CHAT_MSG_IN = 'chat-msg-in';
 export const CHAT_MSG_OUT = 'chat-msg-out';
 export const JOIN_ROOM = 'add-topic';

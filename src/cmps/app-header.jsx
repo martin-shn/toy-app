@@ -16,6 +16,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import { NicePopup } from './nice-popup.jsx';
 
 import { onLogin, onLogout } from '../store/user.actions.js';
+import { loadToys } from '../store/toy.actions.js';
+import { socketService, ADMIN_MSG } from '../services/socket.service.js'
 // import { updateChart } from '../services/chart.service.js';
 // import { UserMsg } from './user-msg.jsx';
 // import { LoginSignup } from './login-signup.jsx';
@@ -34,6 +36,10 @@ class _AppHeader extends React.Component {
 
     
     componentDidMount() {
+        socketService.setup()
+        socketService.on(ADMIN_MSG, msg => {
+            this.props.loadToys();
+          })
         // updateChart()
         this.setState({activeLink:this.props.location.pathname.substr(1)})
     }
@@ -219,7 +225,8 @@ function mapStateToProps(state) {
 }
 const mapDispatchToProps = {
     onLogin,
-    onLogout
+    onLogout,
+    loadToys
 };
 
 export const AppHeader = connect(mapStateToProps, mapDispatchToProps)(withRouter(_AppHeader));
