@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { socketService, ADMIN_MSG } from '../services/socket.service.js'
 
 
 import { loadToys, onAddToy, onEditToy, onRemoveToy } from '../store/toy.actions.js'
@@ -15,6 +16,11 @@ class _ToyApp extends React.Component {
     }
 
     componentDidMount() {
+        socketService.setup()
+        socketService.on(ADMIN_MSG, msg => {
+            this.props.loadToys();
+          })
+
         this.props.filterBy?this.props.loadToys(this.props.filterBy):this.props.loadToys()
     }
 

@@ -1,52 +1,68 @@
-.chat .sender{
-    background-color: rgba(205, 92, 92,0.3);
+.chat .sender {
+    background-color: rgba(205, 92, 92, 0.3);
     margin-bottom: 5px;
     padding: 2px;
     display: block;
     text-align: left;
 }
 
-.chat .replier{
-    background-color: rgba(124, 252, 0,0.3);
+.chat .replier {
+    background-color: rgba(124, 252, 0, 0.3);
     margin-bottom: 5px;
     padding: 2px;
     display: block;
     text-align: left;
 }
 
-.chat .chat-content div span:last-of-type{
+.chat .chat-content div span:last-of-type {
     scroll-snap-align: end;
 }
 
-.chat-content{
+.chat-content {
+    right: 1rem !important;
+    height: 200px !important;
+    & .chat-inner-content {
+        max-height: 150px !important;
+    }
 
-    right: 1rem!important;
-    height: 200px!important;
-    & .chat-inner-content{
-        max-height: 150px!important;
+    & > form {
+        & > p {
+            position: absolute;
+            bottom: 0;
+            margin: 0;
+            font-size: 0.6rem;
+        }
+        & > input {
+            position: absolute;
+            bottom: 15px;
+            width: calc(100% - 20px);
+            left: 10px;
+            box-sizing: border-box;
+            font-size: 1.1rem;
+        }
     }
 
     @include for-narrow-layout {
-        right: 4rem!important;
-        height: 400px!important;
-        & .chat-inner-content{
-            max-height: 350px!important;
-        }   
+        right: 4rem !important;
+        height: 400px !important;
+        & .chat-inner-content {
+            max-height: 350px !important;
+        }
     }
 
     @include for-normal-layout {
-        right: 4rem!important;
-        height: 400px!important;
-        & .chat-inner-content{
-            max-height: 350px!important;
-        }   
+        right: 4rem !important;
+        height: 400px !important;
+        & .chat-inner-content {
+            max-height: 350px !important;
+        }
     }
 
     @include for-wide-layout {
-        right: 4rem!important;
-        height: 400px!important;
-        & .chat-inner-content{
-            max-height: 350px!important;
-        }   
+        right: 4rem !important;
+        height: 400px !important;
+        & .chat-inner-content {
+            max-height: 350px !important;
+        }
     }
 }

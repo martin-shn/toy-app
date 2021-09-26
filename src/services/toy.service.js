@@ -10,7 +10,8 @@ export const toyService = {
     getById,
     add,
     update,
-    remove
+    remove,
+    updateChat
 }
 
 async function query(filterBy={}) {
@@ -54,6 +55,16 @@ async function update(toy) {
         // const res = await axios.put(`${BASE_URL}`,{toy})
         // return await res.data
         return await httpService.put('toy/', {toy})
+    } catch(err){
+        console.log('Cannot update toy', err)
+        throw err
+    }
+} 
+async function updateChat(toy) {
+    try{
+        // const res = await axios.put(`${BASE_URL}`,{toy})
+        // return await res.data
+        return await httpService.put(`toy/${toy._id}`, {toy})
     } catch(err){
         console.log('Cannot update toy', err)
         throw err

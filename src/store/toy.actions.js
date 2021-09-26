@@ -60,3 +60,19 @@ export function onEditToy(toyToSave) {
         }
     }
 }
+
+export function onEditToyChat(toyToSave) {
+    return async (dispatch) => {
+        try{
+            const savedToy = await toyService.updateChat(toyToSave)
+            // const savedToy = await toyService.getById(savedToy._id)
+            return dispatch({
+                    type: 'UPDATE_TOY',
+                    toy: savedToy
+            })
+        } catch (err){
+                console.log('Cannot save toy', err)
+                throw err
+        }
+    }
+}

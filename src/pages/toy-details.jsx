@@ -6,11 +6,13 @@ import {Loader} from '../cmps/loader'
 import {ReviewAdd} from '../cmps/review-add'
 import {ReviewList} from '../cmps/review-list'
 import Button from '@material-ui/core/Button';
+import {onEditToyChat} from '../store/toy.actions'
+import { socketService, ADMIN_MSG } from '../services/socket.service.js'
 
 
 class _ToyDetails extends React.Component{
     state={
-        toy:{}
+        toy:{},
     }
 
     async componentDidMount(){
@@ -29,8 +31,20 @@ class _ToyDetails extends React.Component{
         this.props.history.push({pathname:'/toy'})
     }
 
+    // chat=[];
+    onUpdateChat = (chat) => {
+        // this.chat = chat;
+        this.setState({toy:{...this.state.toy, chat:chat}})
+    }
+
+    updateToy = () => {
+        this.props.onEditToyChat({...this.state.toy})
+        // this.props.onEditToyChat({...this.state.toy, chat: this.chat})
+    } 
+
     render(){
         const {toy} = this.state
+        const {user} = this.props
         if (Object.keys(toy).length===0) return <Loader/>
         // console.log(toy);
         return <section className="toy-details">
@@ -50,16 +64,26 @@ class _ToyDetails extends React.Component{
                 <ReviewList toyId={this.props.match.params.toyId}/>
             </div>
             <Button variant="contained" color="primary" onClick={this.onBack}>Back</Button>
-            <Chat/>
+            {user?.isAdmin&&<Button variant="outlined" color="primary" onClick={()=>{
+                this.onUpdateChat([])
+                socketService.setup()
+                socketService.emit(ADMIN_MSG, "refresh")
+                this.setState({toy:{...this.state.toy, chat: []}, chat: []}, ()=>{console.log(this.state);})
+                }}>Delete chat log</Button>}
+            <Chat toyId={toy._id} user={this.props.user} onClose={this.updateToy} chatLog={toy?.chat} onUpdateChat={this.onUpdateChat}/>
         </section>
     }
 }
 
 function mapStateToProps(state){
-    return {toys: state.toyModule.toys}
+    return {
+        toys: state.toyModule.toys,
+        user: state.userModule.user,
+    }
 }
 
 const mapDispatchToProps = {
+    onEditToyChat
 }
 
 
